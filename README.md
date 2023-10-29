@@ -1,0 +1,1 @@
+#1 task for Rolling scopes school (React)
