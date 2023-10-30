@@ -40,16 +40,15 @@ class App extends Component {
   render(): ReactNode {
       return (
     <>
-      <AppHeader 
-      searchParam={this.state.searchParam} 
-      isLoading={this.state.isLoading}
-      setSearchParam={this.setSearchParam.bind(this)}
-      setPokemon={this.setTakenPokemon.bind(this)}
-      setIsLoading={this.setIsLoading.bind(this)}
-      ></AppHeader>
-
-      <AppMain takenPokemon={this.state.takenPokemon}></AppMain>
-      <AppLoader isLoading={this.state.isLoading}></AppLoader>
+        <AppHeader 
+        searchParam={this.state.searchParam} 
+        isLoading={this.state.isLoading}
+        setSearchParam={this.setSearchParam.bind(this)}
+        setPokemon={this.setTakenPokemon.bind(this)}
+        setIsLoading={this.setIsLoading.bind(this)}
+        ></AppHeader>
+        <AppMain takenPokemon={this.state.takenPokemon}></AppMain>
+        <AppLoader isLoading={this.state.isLoading}></AppLoader>
     </>
     );  
   }
