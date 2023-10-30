@@ -20,6 +20,7 @@ class AppMain extends Component<MainProps> {
     return (
       <main className='app-main-wrong'>
         <p>Nothing was found :(</p>
+        <p>Try Pikachu, Ditto, Meowth or smth</p>
       </main>
     )
   }
