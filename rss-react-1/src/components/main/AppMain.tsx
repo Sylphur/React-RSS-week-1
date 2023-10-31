@@ -9,9 +9,6 @@ interface MainProps {
 }
 
 class AppMain extends Component<MainProps> {
-  throwError() {
-    throw new Error('I crashed!');
-  }
 
   render() {
     if (this.props.takenPokemon !== null)
@@ -25,7 +22,9 @@ class AppMain extends Component<MainProps> {
             <p>Name: {this.props.takenPokemon.name}</p>
             <p>Height: {this.props.takenPokemon.height}</p>
             <p>Weight: {this.props.takenPokemon.weight}</p>
-            <button onClick={this.throwError}>Throw an error</button>
+            <div className='app-main-error-tip'>
+              <span>Tip: type &apos;error&apos; to break the app</span>
+            </div>
           </main>
         </ErrorBoundary>
       );
@@ -34,7 +33,9 @@ class AppMain extends Component<MainProps> {
         <main className="app-main-wrong">
           <p>Nothing was found :(</p>
           <p>Try Pikachu, Ditto, Meowth or smth</p>
-          <button onClick={this.throwError}>Throw an error</button>
+          <div className='app-main-error-tip'>
+              <span>Type &apos;error&apos; to break the app</span>
+          </div>
         </main>
       </ErrorBoundary>
     );

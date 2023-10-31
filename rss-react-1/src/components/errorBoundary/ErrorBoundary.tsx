@@ -1,4 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
+import { setLocalSearchParam } from '../../services/local-storage.service';
 
 interface ErrorBoundaryProps {
   children?: ReactNode;
@@ -12,8 +13,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     hasError: false,
   };
 
-  static getDerivedStateFromError(err: Error) {
-    console.error(err);
+  static getDerivedStateFromError() {
     return { hasError: true };
   }
 
@@ -21,9 +21,19 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     console.error('Uncaught error:', error, errorInfo);
   }
 
+  fixApp() {
+    setLocalSearchParam('Pikachu');
+    location.reload();
+  }
+
   render() {
     if (this.state.hasError) {
-      return <h1>Что-то пошло не так.</h1>;
+      return (
+        <div className='error-boundary-wrapper'>
+          <h1>Something gone wrong</h1>
+          <button onClick={this.fixApp}>Fix it!</button>
+        </div>
+      );
     }
     return this.props.children;
   }
