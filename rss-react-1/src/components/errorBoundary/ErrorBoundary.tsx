@@ -8,17 +8,17 @@ interface ErrorBoundaryState {
 }
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  public state:ErrorBoundaryState = {
-    hasError: false
-  }
+  public state: ErrorBoundaryState = {
+    hasError: false,
+  };
 
-  static getDerivedStateFromError(err:Error) {
+  static getDerivedStateFromError(err: Error) {
     console.error(err);
     return { hasError: true };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error("Uncaught error:", error, errorInfo);
+    console.error('Uncaught error:', error, errorInfo);
   }
 
   render() {

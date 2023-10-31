@@ -1,18 +1,19 @@
 import { Component } from 'react';
-import './AppLoader.scss'
+import './AppLoader.scss';
 
 interface LoaderState {
-  isLoading: boolean
+  isLoading: boolean;
 }
 
 class AppLoader extends Component<LoaderState> {
   render() {
-    if (this.props.isLoading) return (
-      <div className='app-loader'>
-        <p className='app-loader-msg'>Loading ...</p>
-      </div>
-    );
-    return <></>
+    if (this.props.isLoading)
+      return (
+        <div className="app-loader">
+          <p className="app-loader-msg">Loading ...</p>
+        </div>
+      );
+    return <></>;
   }
 }
 
