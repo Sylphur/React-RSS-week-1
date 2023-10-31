@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { PokemonResponse, searchPokemon } from '../../../services/api.service';
 import { getLocalSearchParam } from '../../../services/local-storage.service';
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { setLocalSearchParam } from '../../../services/local-storage.service';
 import './SearchInput.scss'
 

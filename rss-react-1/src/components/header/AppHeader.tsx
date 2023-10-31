@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import SearchInput from './search-input/SearchInput';
 import SearchButton from './search-button/SearchButton';
 import logo from '../../public/pokeLogo.png';
