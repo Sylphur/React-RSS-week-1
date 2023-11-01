@@ -3,7 +3,13 @@ import './App.css';
 import AppHeader from './components/header/AppHeader';
 import AppMain from './components/main/AppMain';
 import { getLocalSearchParam } from './services/local-storage.service';
-import { PokemonListResponse, PokemonResponse, PokemonUrl, searchPokemon, searchPokemonList } from './services/api.service';
+import {
+  PokemonListResponse,
+  PokemonResponse,
+  PokemonUrl,
+  searchPokemon,
+  searchPokemonList,
+} from './services/api.service';
 import AppLoader from './components/loader/AppLoader';
 
 class App extends Component {
@@ -30,39 +36,34 @@ class App extends Component {
     if (param === '') {
       searchPokemonList()
         .then((res) => res.json())
-        .then((
-          (list: PokemonListResponse) => {
-            console.log(list);
-            const requests = list.results.slice(random, random + 9).map((item: PokemonUrl) => searchPokemon(item.name));
-            Promise.all(requests)
-            .then(
-              (response) => {
-                const responses = response.map((res) => res.json());
-                Promise.all(responses)
-                .then(
-                  (pokemons: PokemonResponse[]) => {pokemons.forEach((pokemon) => result.push(pokemon));
-                  this.setTakenPokemon(pokemons);
-                  this.setIsLoading(false);
-                  })
-              }
-              )
+        .then((list: PokemonListResponse) => {
+          console.log(list);
+          const requests = list.results
+            .slice(random, random + 9)
+            .map((item: PokemonUrl) => searchPokemon(item.name));
+          Promise.all(requests).then((response) => {
+            const responses = response.map((res) => res.json());
+            Promise.all(responses).then((pokemons: PokemonResponse[]) => {
+              pokemons.forEach((pokemon) => result.push(pokemon));
+              this.setTakenPokemon(pokemons);
+              this.setIsLoading(false);
+            });
+          });
+        });
+    } else {
+      searchPokemon(getLocalSearchParam().toLowerCase())
+        .then((res) => res.json())
+        .then(
+          (result: PokemonResponse) => {
+            this.setTakenPokemon([result]);
+            this.setIsLoading(false);
+          },
+          () => {
+            this.setTakenPokemon([]);
+            this.setIsLoading(false);
           }
-        ))
-    } 
-    else {
-    searchPokemon(getLocalSearchParam().toLowerCase())
-      .then((res) => res.json())
-      .then(
-        (result: PokemonResponse) => {
-          this.setTakenPokemon([result]);
-          this.setIsLoading(false);
-        },
-        () => {
-          this.setTakenPokemon([]);
-          this.setIsLoading(false);
-        }
-      );
-  }
+        );
+    }
   }
 
   componentDidMount() {
@@ -80,9 +81,9 @@ class App extends Component {
           setIsLoading={this.setIsLoading.bind(this)}
           searchPokemon={this.searchPokemon.bind(this)}
         ></AppHeader>
-        <AppMain 
-        searchParam={this.state.searchParam}
-        takenPokemon={this.state.takenPokemon}
+        <AppMain
+          searchParam={this.state.searchParam}
+          takenPokemon={this.state.takenPokemon}
         ></AppMain>
         <AppLoader isLoading={this.state.isLoading}></AppLoader>
       </>

@@ -29,7 +29,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className='error-boundary-wrapper'>
+        <div className="error-boundary-wrapper">
           <h1>Something gone wrong</h1>
           <button onClick={this.fixApp}>Fix it!</button>
         </div>

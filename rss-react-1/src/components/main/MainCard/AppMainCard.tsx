@@ -10,14 +10,14 @@ class AppMainCard extends Component<CardProps> {
     return (
       <>
         <div className="main-card-wrapper">
-              <img
-                src={this.props.takenPokemon.sprites.front_default}
-                alt="pokemon-img"
-              />
-              <p>Name: {this.props.takenPokemon.name}</p>
-              <p>Height: {this.props.takenPokemon.height}</p>
-              <p>Weight: {this.props.takenPokemon.weight}</p>
-            </div>
+          <img
+            src={this.props.takenPokemon.sprites.front_default}
+            alt="pokemon-img"
+          />
+          <p>Name: {this.props.takenPokemon.name}</p>
+          <p>Height: {this.props.takenPokemon.height}</p>
+          <p>Weight: {this.props.takenPokemon.weight}</p>
+        </div>
       </>
     );
   }

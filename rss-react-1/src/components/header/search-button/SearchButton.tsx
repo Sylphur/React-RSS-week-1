@@ -14,7 +14,7 @@ class SearchButton extends Component<SearchButtonProps> {
       <div>
         <button
           onClick={() => {
-            this.props.searchPokemon()
+            this.props.searchPokemon();
           }}
         >
           Search

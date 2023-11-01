@@ -1,5 +1,8 @@
 import { Component } from 'react';
-import { getLocalSearchParam, setLocalSearchParam } from '../../../services/local-storage.service';
+import {
+  getLocalSearchParam,
+  setLocalSearchParam,
+} from '../../../services/local-storage.service';
 import './SearchInput.scss';
 
 interface SearchItemProps {
@@ -8,10 +11,9 @@ interface SearchItemProps {
 }
 
 class SearchInput extends Component<SearchItemProps> {
-
   render() {
     const searchParam = getLocalSearchParam();
-    if (searchParam === 'error') throw new Error ('Error has been catched!')
+    if (searchParam === 'error') throw new Error('Error has been catched!');
 
     return (
       <div>
