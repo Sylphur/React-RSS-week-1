@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { PokemonResponse } from '../../../services/api.service';
 
 interface CardProps {
