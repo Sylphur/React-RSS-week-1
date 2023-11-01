@@ -37,7 +37,6 @@ class App extends Component {
       searchPokemonList()
         .then((res) => res.json())
         .then((list: PokemonListResponse) => {
-          console.log(list);
           const requests = list.results
             .slice(random, random + 9)
             .map((item: PokemonUrl) => searchPokemon(item.name));
