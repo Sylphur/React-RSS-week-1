@@ -60,9 +60,6 @@ export const doSearch = async (param: string):Promise<PokemonResponse[]> => {
         (res: PokemonResponse) => {
           return result.push(res);
         },
-        // () => {
-        //   return result.push([]);
-        // }
       );
   }
   return result;

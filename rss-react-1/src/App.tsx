@@ -21,8 +21,7 @@ class App extends Component {
   setIsLoading(param: boolean) {
     this.setState({ isLoading: param });
   }
-
-  componentDidMount() {
+  searchPokemon() {
     this.setIsLoading(true);
     const param = getLocalSearchParam().toLowerCase();
     const result = [];
@@ -66,6 +65,10 @@ class App extends Component {
   }
   }
 
+  componentDidMount() {
+    this.searchPokemon();
+  }
+
   render(): ReactNode {
     return (
       <>
@@ -75,6 +78,7 @@ class App extends Component {
           setSearchParam={this.setSearchParam.bind(this)}
           setPokemon={this.setTakenPokemon.bind(this)}
           setIsLoading={this.setIsLoading.bind(this)}
+          searchPokemon={this.searchPokemon.bind(this)}
         ></AppHeader>
         <AppMain 
         searchParam={this.state.searchParam}

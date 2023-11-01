@@ -13,6 +13,7 @@ export interface HeaderProps {
   setSearchParam: (param: string) => void;
   setPokemon: (pokemon: PokemonResponse[]) => void;
   setIsLoading: (param: boolean) => void;
+  searchPokemon: () => void;
 }
 
 class AppHeader extends Component<HeaderProps> {
@@ -32,6 +33,7 @@ class AppHeader extends Component<HeaderProps> {
           isLoading={this.props.isLoading}
           setPokemon={this.props.setPokemon}
           setIsLoading={this.props.setIsLoading}
+          searchPokemon={this.props.searchPokemon}
         ></SearchButton>
         </ErrorBoundary>
       </header>
