@@ -11,7 +11,7 @@ export interface HeaderProps {
   searchParam:string;
   isLoading:boolean;
   setSearchParam: (param: string) => void;
-  setPokemon: (pokemon: PokemonResponse | null) => void;
+  setPokemon: (pokemon: PokemonResponse[]) => void;
   setIsLoading: (param: boolean) => void;
 }
 

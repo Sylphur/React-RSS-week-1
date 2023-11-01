@@ -3,19 +3,19 @@ import './App.css';
 import AppHeader from './components/header/AppHeader';
 import AppMain from './components/main/AppMain';
 import { getLocalSearchParam } from './services/local-storage.service';
-import { PokemonResponse, searchPokemon } from './services/api.service';
+import { PokemonListResponse, PokemonResponse, PokemonUrl, searchPokemon, searchPokemonList } from './services/api.service';
 import AppLoader from './components/loader/AppLoader';
 
 class App extends Component {
   state = {
     searchParam: getLocalSearchParam(),
-    takenPokemon: null,
+    takenPokemon: [],
     isLoading: true,
   };
   setSearchParam(param: string) {
     this.setState({ searchParam: param });
   }
-  setTakenPokemon(pokemon: PokemonResponse | null) {
+  setTakenPokemon(pokemon: PokemonResponse[]) {
     this.setState({ takenPokemon: pokemon });
   }
   setIsLoading(param: boolean) {
@@ -23,18 +23,47 @@ class App extends Component {
   }
 
   componentDidMount() {
-    searchPokemon(this.state.searchParam.toLowerCase())
+    this.setIsLoading(true);
+    const param = getLocalSearchParam().toLowerCase();
+    const result = [];
+    const random = Math.random() * 10;
+
+    if (param === '') {
+      searchPokemonList()
+        .then((res) => res.json())
+        .then((
+          (list: PokemonListResponse) => {
+            console.log(list);
+            const requests = list.results.slice(random, random + 9).map((item: PokemonUrl) => searchPokemon(item.name));
+            Promise.all(requests)
+            .then(
+              (response) => {
+                const responses = response.map((res) => res.json());
+                Promise.all(responses)
+                .then(
+                  (pokemons: PokemonResponse[]) => {pokemons.forEach((pokemon) => result.push(pokemon));
+                  this.setTakenPokemon(pokemons);
+                  this.setIsLoading(false);
+                  })
+              }
+              )
+          }
+        ))
+    } 
+    else {
+    searchPokemon(getLocalSearchParam().toLowerCase())
       .then((res) => res.json())
       .then(
         (result: PokemonResponse) => {
-          this.setState({ takenPokemon: result });
+          this.setTakenPokemon([result]);
           this.setIsLoading(false);
         },
         () => {
-          this.setState({ takenPokemon: null });
+          this.setTakenPokemon([]);
           this.setIsLoading(false);
         }
       );
+  }
   }
 
   render(): ReactNode {
@@ -47,7 +76,10 @@ class App extends Component {
           setPokemon={this.setTakenPokemon.bind(this)}
           setIsLoading={this.setIsLoading.bind(this)}
         ></AppHeader>
-        <AppMain takenPokemon={this.state.takenPokemon}></AppMain>
+        <AppMain 
+        searchParam={this.state.searchParam}
+        takenPokemon={this.state.takenPokemon}
+        ></AppMain>
         <AppLoader isLoading={this.state.isLoading}></AppLoader>
       </>
     );
