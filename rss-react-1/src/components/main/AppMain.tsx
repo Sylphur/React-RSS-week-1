@@ -1,4 +1,4 @@
-import { PaginationData, PokemonResponse } from '../../Interfaces/interfaces';
+import { PaginationData, PokemonResponse } from '../../shared/interfaces';
 import './AppMain.scss';
 import AppMainCard from './MainCard/AppMainCard';
 import MainPaginator from './MainPaginator/MainPaginator';

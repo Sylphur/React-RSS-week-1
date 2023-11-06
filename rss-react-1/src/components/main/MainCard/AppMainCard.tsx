@@ -1,4 +1,4 @@
-import { PokemonResponse } from "../../../Interfaces/interfaces";
+import { PokemonResponse } from "../../../shared/interfaces";
 
 interface CardProps {
   takenPokemon: PokemonResponse;

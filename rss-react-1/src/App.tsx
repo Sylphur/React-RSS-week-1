@@ -8,13 +8,16 @@ import {
   searchPokemonList,
 } from './services/api.service';
 import AppLoader from './components/loader/AppLoader';
-import { PaginationData, PokemonListResponse, PokemonResponse, PokemonUrl } from './Interfaces/interfaces';
+import { PaginationData, PokemonListResponse, PokemonResponse, PokemonUrl } from './shared/interfaces';
+import { useSearchParams } from 'react-router-dom';
+import { possiblePageSize } from './shared/constants';
 
 const App = () => {
   const [searchParam, setSearchParam] = useState<string>(getLocalSearchParam());
   const [takenPokemon, setTakenPokemon] = useState<PokemonResponse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [paginationData, setPaginationData] = useState<PaginationData>({currPage: 1, currPageSize: 12, totalCount: 100});
+  const [paginationData, setPaginationData] = useState<PaginationData>({currPage: 1, currPageSize: 12, totalCount: 30});
+  const [paginationUrlData] = useSearchParams();
 
   const search = () => {
     console.log(paginationData);
@@ -55,11 +58,15 @@ const App = () => {
         );
     }
   }
-
   useEffect(() => {
+    const page = paginationUrlData.get('page') ?? 1;
+    const pageSize = paginationUrlData.get('pageSize') ?? 12;
+
+    if (+page !== paginationData.currPage) setPaginationData({...paginationData, currPage: +page});
+    if (+pageSize !== paginationData.currPageSize && possiblePageSize.indexOf(+pageSize) !== -1) 
+      setPaginationData({...paginationData, currPageSize: +pageSize});
     search();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return (
     <>

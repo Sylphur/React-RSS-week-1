@@ -1,5 +1,6 @@
-import { PaginationData } from '../../../Interfaces/interfaces';
+import { PaginationData } from '../../../shared/interfaces';
 import { ChangeEvent, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './MainPaginator.scss'
 
 interface PaginationProps {
@@ -9,6 +10,7 @@ interface PaginationProps {
 }
 
 const MainPaginator = (props: PaginationProps) => {
+  const navigate = useNavigate();
 
   const nextPage = () => {
     props.setPaginationData((prevState) => {
@@ -17,7 +19,6 @@ const MainPaginator = (props: PaginationProps) => {
         currPage: prevState.currPage + 1,
       }
     });
-    
   };
   const previousPage = () => {
     props.setPaginationData((prevState) => {
@@ -36,9 +37,13 @@ const MainPaginator = (props: PaginationProps) => {
       }
     });
   }
+  const getNavigate = (pageNumber: number, pageSize: number) => {
+    navigate(`?page=${pageNumber}&pageSize=${pageSize}`)
+  };
 
   useEffect(() => {
     console.log('Prop is ', props.paginationData.currPage);
+    getNavigate(props.paginationData.currPage, props.paginationData.currPageSize)
     props.searchPokemon();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[props.paginationData])
