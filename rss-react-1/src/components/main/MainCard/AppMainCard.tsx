@@ -1,4 +1,4 @@
-import { PokemonResponse } from '../../../services/api.service';
+import { PokemonResponse } from "../../../Interfaces/interfaces";
 
 interface CardProps {
   takenPokemon: PokemonResponse;
