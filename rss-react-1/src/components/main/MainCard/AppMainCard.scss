@@ -1,0 +1,16 @@
+.main-card-link-wrapper {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.87);
+}
+.main-card-link-wrapper:hover {
+  color: white;
+}
+.main-card-wrapper {
+  width: 150px;
+}
+.main-card-wrapper:hover {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  border-color: #535bf2;
+  transition: border-color 0.25s;
+}
