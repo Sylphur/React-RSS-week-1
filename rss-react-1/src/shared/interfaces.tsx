@@ -10,10 +10,10 @@ export interface PokemonResponse {
   weight: number;
   abilities: {
     ability: {
-      name: string,
-      url: string
-    }
-  }[]
+      name: string;
+      url: string;
+    };
+  }[];
 }
 export interface PokemonListResponse {
   count: number;
@@ -27,7 +27,7 @@ export interface PokemonUrl {
 }
 
 export interface PaginationData {
-  currPage: number,
-  currPageSize: number,
-  totalCount: number
+  currPage: number;
+  currPageSize: number;
+  totalCount: number;
 }

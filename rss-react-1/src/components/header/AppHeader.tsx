@@ -21,9 +21,7 @@ const AppHeader = (props: HeaderProps) => {
           setSearchParam={props.setSearchParam}
         ></SearchInput>
 
-        <SearchButton
-          searchPokemon={props.searchPokemon}
-        ></SearchButton>
+        <SearchButton searchPokemon={props.searchPokemon}></SearchButton>
       </ErrorBoundary>
     </header>
   );

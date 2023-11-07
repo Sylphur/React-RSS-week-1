@@ -1,8 +1,8 @@
-import { generateLink } from "../../../services/link-generation.service";
-import { PaginationData, PokemonResponse } from "../../../shared/interfaces";
+import { generateLink } from '../../../services/link-generation.service';
+import { PaginationData, PokemonResponse } from '../../../shared/interfaces';
 import { Link } from 'react-router-dom';
 
-import './AppMainCard.scss'
+import './AppMainCard.scss';
 
 interface CardProps {
   takenPokemon: PokemonResponse;
@@ -11,13 +11,15 @@ interface CardProps {
 
 const AppMainCard = (props: CardProps) => {
   return (
-    <>  
-      <Link to={generateLink(
-            props.paginationData.currPage, 
-            props.paginationData.currPageSize,
-            props.takenPokemon.id
-            )}
-            className="main-card-link-wrapper">
+    <>
+      <Link
+        to={generateLink(
+          props.paginationData.currPage,
+          props.paginationData.currPageSize,
+          props.takenPokemon.id
+        )}
+        className="main-card-link-wrapper"
+      >
         <div className="main-card-wrapper">
           <img
             src={props.takenPokemon.sprites.front_default}

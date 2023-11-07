@@ -5,10 +5,11 @@ const SearchButton = (props: SearchButtonProps) => {
   return (
     <div>
       <button
-        type='submit'
+        type="submit"
         onClick={() => {
           props.searchPokemon();
-        }}>
+        }}
+      >
         Search
       </button>
     </div>

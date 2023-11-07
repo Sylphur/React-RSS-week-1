@@ -29,15 +29,8 @@
   align-items: center;
   flex-wrap: wrap;
   padding: 0;
-  // grid-template-columns: repeat(3, 1fr);
   gap: 1em;
   list-style-type: none;
-  // @media screen and (max-width: 870px) {
-  //   grid-template-columns: repeat(3, 1fr);
-  // }
-  // @media screen and (max-width: 680px) {
-  //   grid-template-columns: repeat(2, 1fr);
-  // }
 }
 .app-main-list-wrapper {
   flex-shrink: 10;
