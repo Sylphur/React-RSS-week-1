@@ -1,9 +1,7 @@
-.app-main {
-  margin-top: 50px;
+.app-main-wrapper {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
+  gap: 10px;
 }
 .app-main-wrong {
   margin-top: 100px;
@@ -26,14 +24,21 @@
   background-color: #1a1a1a;
 }
 .app-main-ul {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0;
+  // grid-template-columns: repeat(3, 1fr);
   gap: 1em;
   list-style-type: none;
-  @media screen and (max-width: 870px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media screen and (max-width: 680px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  // @media screen and (max-width: 870px) {
+  //   grid-template-columns: repeat(3, 1fr);
+  // }
+  // @media screen and (max-width: 680px) {
+  //   grid-template-columns: repeat(2, 1fr);
+  // }
+}
+.app-main-list-wrapper {
+  flex-shrink: 10;
 }

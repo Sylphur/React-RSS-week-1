@@ -2,6 +2,7 @@ import { PaginationData } from '../../../shared/interfaces';
 import { ChangeEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MainPaginator.scss'
+import { generateLink } from '../../../services/link-generation.service';
 
 interface PaginationProps {
   paginationData: PaginationData;
@@ -38,7 +39,7 @@ const MainPaginator = (props: PaginationProps) => {
     });
   }
   const getNavigate = (pageNumber: number, pageSize: number) => {
-    navigate(`?page=${pageNumber}&pageSize=${pageSize}`)
+    navigate(generateLink(pageNumber, pageSize))
   };
 
   useEffect(() => {

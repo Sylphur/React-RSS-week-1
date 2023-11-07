@@ -1,3 +1,4 @@
+import { Outlet } from 'react-router-dom';
 import { PaginationData, PokemonResponse } from '../../shared/interfaces';
 import './AppMain.scss';
 import AppMainCard from './MainCard/AppMainCard';
@@ -22,10 +23,12 @@ const AppMain = (props: MainProps) => {
       </main>
     );
   else return (
-    <>
-          <div className="app-main-error-tip">
-            <span>Tip: type &apos;error&apos; to break the app</span>
-          </div>
+    <main className='app-main'>
+      <article className="app-main-error-tip">
+        <span>Tip: type &apos;error&apos; to break the app</span>
+      </article>
+      <div className="app-main-wrapper">
+      <section className="app-main-list-wrapper">  
           {props.takenPokemon.length > 1 && <MainPaginator
             paginationData={props.paginationData}
             setPaginationData={props.setPaginationData}
@@ -34,11 +37,17 @@ const AppMain = (props: MainProps) => {
           <ul className="app-main-ul">
             {props.takenPokemon.map((item) => (
               <li key={item.name}>
-                <AppMainCard takenPokemon={item}></AppMainCard>
+                <AppMainCard 
+                  takenPokemon={item}
+                  paginationData={props.paginationData}
+                ></AppMainCard>
               </li>
             ))}
           </ul>
-        </>
+      </section>
+      <Outlet />
+      </div>
+    </main>
   );
 };
 

@@ -8,6 +8,12 @@ export interface PokemonResponse {
     front_default: string;
   };
   weight: number;
+  abilities: {
+    ability: {
+      name: string,
+      url: string
+    }
+  }[]
 }
 export interface PokemonListResponse {
   count: number;
