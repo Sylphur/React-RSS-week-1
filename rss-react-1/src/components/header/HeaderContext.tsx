@@ -1,12 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
-import { ReactNodeProps } from '../../shared/interfaces';
+import { HeaderContextProps, ReactNodeProps } from '../../shared/interfaces';
 import { getLocalSearchParam } from '../../services/local-storage.service';
 
-interface HeaderContextProps {
-  searchParam: string,
-  setSearchParam: React.Dispatch<React.SetStateAction<string>>,
-}
 const HeaderContextInitialValues: HeaderContextProps = {
   searchParam: '',
   setSearchParam: () => {},

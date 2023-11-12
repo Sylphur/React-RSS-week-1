@@ -1,17 +1,8 @@
 import React, { useState } from "react";
-import { PaginationData, PokemonListResponse, PokemonResponse, PokemonUrl, ReactNodeProps } from "./shared/interfaces";
+import { AppContextProps, PaginationData, PokemonListResponse, PokemonResponse, PokemonUrl, ReactNodeProps } from "./shared/interfaces";
 import { getLocalSearchParam } from "./services/local-storage.service";
 import { searchPokemon, searchPokemonList } from "./services/api.service";
 
-interface AppContextProps {
-  takenPokemon: PokemonResponse[],
-  setTakenPokemon: React.Dispatch<React.SetStateAction<PokemonResponse[]>>,
-  isLoading: boolean,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  paginationData: PaginationData,
-  setPaginationData: React.Dispatch<React.SetStateAction<PaginationData>>,
-  search: (setIsLoading: (isLoading: boolean) => void) => void
-}
 const AppContextInitialValues: AppContextProps = {
   takenPokemon: [], 
   setTakenPokemon: ()=>{}, 
@@ -35,7 +26,6 @@ export const AppContextProvider = ({ children }:ReactNodeProps ) => {
 
   const search = (setIsLoading: (isLoading: boolean)=>void) => {
     setIsLoading(true);
-    // setIsLoading1(true);
     const param = getLocalSearchParam().toLowerCase();
     const result = [];
 
@@ -54,7 +44,6 @@ export const AppContextProvider = ({ children }:ReactNodeProps ) => {
               pokemons.forEach((pokemon) => result.push(pokemon));
               setTakenPokemon(pokemons);
               setIsLoading(false);
-              // setIsLoading1(false);
             });
           });
         });
@@ -65,12 +54,10 @@ export const AppContextProvider = ({ children }:ReactNodeProps ) => {
           (result: PokemonResponse) => {
             setTakenPokemon([result]);
             setIsLoading(false);
-            // setIsLoading1(false);
           },
           () => {
             setTakenPokemon([]);
             setIsLoading(false);
-            // setIsLoading1(false);
           }
         );
     }
@@ -90,5 +77,3 @@ export const AppContextProvider = ({ children }:ReactNodeProps ) => {
     </AppContext.Provider>
   )
 };
-
-export default AppContext;

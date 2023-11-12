@@ -1,9 +1,8 @@
-// import { PaginationData } from '../../../shared/interfaces';
 import { ChangeEvent, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MainPaginator.scss';
 import { generateLink } from '../../../services/link-generation.service';
-import AppContext from '../../../AppContext';
+import { AppContext } from '../../../AppContext';
 
 const MainPaginator = () => {
   const navigate = useNavigate();

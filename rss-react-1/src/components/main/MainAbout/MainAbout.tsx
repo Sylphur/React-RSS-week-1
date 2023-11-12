@@ -32,7 +32,6 @@ const MainAbout = () => {
   const returnToSearch = () => {
     const page = searchParams.get('page') || 1;
     const pageSize = searchParams.get('pageSize') || 12;
-    console.log(generateLink(+page, +pageSize));
 
     navigate(generateLink(+page, +pageSize));
   };

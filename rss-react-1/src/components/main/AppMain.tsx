@@ -3,9 +3,9 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import './AppMain.scss';
 import AppMainCard from './MainCard/AppMainCard';
 import MainPaginator from './MainPaginator/MainPaginator';
-import AppContext from '../../AppContext';
 import { possiblePageSize } from '../../shared/constants';
 import AppLoader from '../loader/AppLoader';
+import { AppContext } from '../../AppContext';
 
 const AppMain = () => {
   const [paginationUrlData] = useSearchParams();
