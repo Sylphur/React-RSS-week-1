@@ -6,20 +6,22 @@ import { getLocalSearchParam } from '../../services/local-storage.service';
 const HeaderContextInitialValues: HeaderContextProps = {
   searchParam: '',
   setSearchParam: () => {},
-}
+};
 
-export const HeaderContext = React.createContext<HeaderContextProps>(HeaderContextInitialValues);
+export const HeaderContext = React.createContext<HeaderContextProps>(
+  HeaderContextInitialValues
+);
 
 export function HeaderContextProvider({ children }: ReactNodeProps) {
   const [searchParam, setSearchParam] = useState<string>(getLocalSearchParam());
 
-
   return (
     <HeaderContext.Provider
-      value={{ 
+      value={{
         searchParam: searchParam,
-        setSearchParam: setSearchParam
-       }}>
+        setSearchParam: setSearchParam,
+      }}
+    >
       {children}
     </HeaderContext.Provider>
   );

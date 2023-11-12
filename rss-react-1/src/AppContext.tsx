@@ -1,30 +1,45 @@
-import React, { useState } from "react";
-import { AppContextProps, PaginationData, PokemonListResponse, PokemonResponse, PokemonUrl, ReactNodeProps } from "./shared/interfaces";
-import { getLocalSearchParam } from "./services/local-storage.service";
-import { searchPokemon, searchPokemonList } from "./services/api.service";
+import React, { useState } from 'react';
+import {
+  AppContextProps,
+  PaginationData,
+  PokemonListResponse,
+  PokemonResponse,
+  PokemonUrl,
+  ReactNodeProps,
+} from './shared/interfaces';
+import { getLocalSearchParam } from './services/local-storage.service';
+import { searchPokemon, searchPokemonList } from './services/api.service';
 
 const AppContextInitialValues: AppContextProps = {
-  takenPokemon: [], 
-  setTakenPokemon: ()=>{}, 
-  isLoading: true, 
-  setIsLoading: ()=>{},
+  takenPokemon: [],
+  setTakenPokemon: () => {},
+  isLoading: true,
+  setIsLoading: () => {},
   paginationData: {
     currPage: 1,
     currPageSize: 12,
     totalCount: 30,
   },
-  setPaginationData: ()=>{},
-  search: ()=>{},
-}
+  setPaginationData: () => {},
+  search: () => {},
+};
 
-export const AppContext = React.createContext<AppContextProps>(AppContextInitialValues);
+export const AppContext = React.createContext<AppContextProps>(
+  AppContextInitialValues
+);
 
-export const AppContextProvider = ({ children }:ReactNodeProps ) => {
-  const [takenPokemon, setTakenPokemon] = useState<PokemonResponse[]>(AppContextInitialValues.takenPokemon);
-  const [isLoading, setIsLoading] = useState<boolean>(AppContextInitialValues.isLoading);
-  const [paginationData, setPaginationData] = useState<PaginationData>(AppContextInitialValues.paginationData);
+export const AppContextProvider = ({ children }: ReactNodeProps) => {
+  const [takenPokemon, setTakenPokemon] = useState<PokemonResponse[]>(
+    AppContextInitialValues.takenPokemon
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(
+    AppContextInitialValues.isLoading
+  );
+  const [paginationData, setPaginationData] = useState<PaginationData>(
+    AppContextInitialValues.paginationData
+  );
 
-  const search = (setIsLoading: (isLoading: boolean)=>void) => {
+  const search = (setIsLoading: (isLoading: boolean) => void) => {
     setIsLoading(true);
     const param = getLocalSearchParam().toLowerCase();
     const result = [];
@@ -64,16 +79,18 @@ export const AppContextProvider = ({ children }:ReactNodeProps ) => {
   };
 
   return (
-    <AppContext.Provider value={{
-      takenPokemon: takenPokemon, 
-      setTakenPokemon: setTakenPokemon, 
-      isLoading: isLoading, 
-      setIsLoading: setIsLoading,
-      paginationData: paginationData,
-      setPaginationData: setPaginationData,
-      search: search
-      }}>
-      { children }
+    <AppContext.Provider
+      value={{
+        takenPokemon: takenPokemon,
+        setTakenPokemon: setTakenPokemon,
+        isLoading: isLoading,
+        setIsLoading: setIsLoading,
+        paginationData: paginationData,
+        setPaginationData: setPaginationData,
+        search: search,
+      }}
+    >
+      {children}
     </AppContext.Provider>
-  )
+  );
 };

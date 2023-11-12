@@ -8,10 +8,8 @@ const App = () => {
     <>
       <AppContextProvider>
         <>
-          <AppHeader
-          ></AppHeader>
-          <AppMain
-        ></AppMain>
+          <AppHeader></AppHeader>
+          <AppMain></AppMain>
         </>
       </AppContextProvider>
     </>

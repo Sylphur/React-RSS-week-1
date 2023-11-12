@@ -16,7 +16,7 @@ const AppMain = () => {
     const pageSize = paginationUrlData.get('pageSize') ?? 12;
 
     if (+page !== useAppContext.paginationData.currPage)
-    useAppContext.setPaginationData({
+      useAppContext.setPaginationData({
         ...useAppContext.paginationData,
         currPage: +page,
       });
@@ -24,11 +24,11 @@ const AppMain = () => {
       +pageSize !== useAppContext.paginationData.currPageSize &&
       possiblePageSize.indexOf(+pageSize) !== -1
     )
-    useAppContext.setPaginationData({
+      useAppContext.setPaginationData({
         ...useAppContext.paginationData,
         currPageSize: +pageSize,
       });
-      useAppContext.search(useAppContext.setIsLoading);
+    useAppContext.search(useAppContext.setIsLoading);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

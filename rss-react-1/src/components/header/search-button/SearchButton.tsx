@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { AppContext } from "../../../AppContext";
+import { useContext } from 'react';
+import { AppContext } from '../../../AppContext';
 
 const SearchButton = () => {
-  const useAppContext = useContext(AppContext)
+  const useAppContext = useContext(AppContext);
   return (
     <div>
       <button
