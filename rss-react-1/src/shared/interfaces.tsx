@@ -1,3 +1,4 @@
+// API interfaces
 export interface PokemonResponse {
   height: number;
   id: number;
@@ -25,9 +26,14 @@ export interface PokemonUrl {
   name: string;
   url: string;
 }
+// Context interfaces
 
+// Other interfaces
 export interface PaginationData {
   currPage: number;
   currPageSize: number;
   totalCount: number;
+}
+export interface ReactNodeProps {
+  children: React.ReactNode;
 }

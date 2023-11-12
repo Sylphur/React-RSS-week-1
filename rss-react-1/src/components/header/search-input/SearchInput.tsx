@@ -1,21 +1,20 @@
+import { useContext } from 'react';
 import { setLocalSearchParam } from '../../../services/local-storage.service';
+
 import './SearchInput.scss';
+import { HeaderContext } from '../HeaderContext';
 
-interface SearchItemProps {
-  searchParam: string;
-  setSearchParam: (param: string) => void;
-}
-
-const SearchInput = (props: SearchItemProps) => {
-  if (props.searchParam === 'error') throw new Error('Error has been catched!');
+const SearchInput = () => {
+  const useHeaderContext = useContext(HeaderContext)
+  if (useHeaderContext.searchParam === 'error') throw new Error('Error has been catched!');
   return (
     <div>
       <input
         type="text"
         className="header-input"
-        value={props.searchParam}
+        value={useHeaderContext.searchParam}
         onChange={(event) => {
-          props.setSearchParam(event.target.value);
+          useHeaderContext.setSearchParam(event.target.value);
           setLocalSearchParam(event.target.value);
         }}
       />

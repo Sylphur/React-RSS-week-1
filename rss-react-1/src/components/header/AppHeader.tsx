@@ -4,26 +4,19 @@ import logo from '../../public/pokeLogo.png';
 
 import './AppHeader.scss';
 import ErrorBoundary from '../errorBoundary/ErrorBoundary';
+import { HeaderContextProvider } from './HeaderContext';
 
-export interface HeaderProps {
-  searchParam: string;
-  setSearchParam: (param: string) => void;
-  searchPokemon: () => void;
-}
-
-const AppHeader = (props: HeaderProps) => {
+const AppHeader = () => {
   return (
-    <header className="app-header">
-      <ErrorBoundary>
-        <img src={logo} alt="Poke-logo" className="header-logo" />
-        <SearchInput
-          searchParam={props.searchParam}
-          setSearchParam={props.setSearchParam}
-        ></SearchInput>
-
-        <SearchButton searchPokemon={props.searchPokemon}></SearchButton>
-      </ErrorBoundary>
-    </header>
+    <HeaderContextProvider>
+      <header className="app-header">
+        <ErrorBoundary>
+          <img src={logo} alt="Poke-logo" className="header-logo" />
+          <SearchInput></SearchInput>
+          <SearchButton></SearchButton>
+        </ErrorBoundary>
+      </header>
+    </HeaderContextProvider>
   );
 };
 

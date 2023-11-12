@@ -1,13 +1,14 @@
-interface SearchButtonProps {
-  searchPokemon: () => void;
-}
-const SearchButton = (props: SearchButtonProps) => {
+import { useContext } from "react";
+import AppContext from "../../../AppContext";
+
+const SearchButton = () => {
+  const useAppContext = useContext(AppContext)
   return (
     <div>
       <button
         type="submit"
         onClick={() => {
-          props.searchPokemon();
+          useAppContext.search(useAppContext.setIsLoading);
         }}
       >
         Search
