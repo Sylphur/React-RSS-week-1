@@ -4,6 +4,6 @@ export const generateLink = (
   id?: number
 ) => {
   return id
-    ? `${id}?page=${pageNumber}&pageSize=${pageSize}`
+    ? `/search/${id}?page=${pageNumber}&pageSize=${pageSize}`
     : `/?page=${pageNumber}&pageSize=${pageSize}`;
 };

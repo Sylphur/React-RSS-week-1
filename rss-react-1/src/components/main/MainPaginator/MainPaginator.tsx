@@ -59,7 +59,7 @@ const MainPaginator = () => {
         disabled={
           useAppContext.paginationData.currPage >=
           useAppContext.paginationData.totalCount /
-            useAppContext.paginationData.currPageSize
+          useAppContext.paginationData.currPageSize
         }
         onClick={nextPage}
       >
@@ -70,7 +70,7 @@ const MainPaginator = () => {
           className="pagination-select"
           value={useAppContext.paginationData.currPageSize}
           onChange={handleChange}
-          name="pagination-select"
+          name='pagination-select'
         >
           {[4, 8, 12, 20].map((value) => (
             <option key={value} value={value}>

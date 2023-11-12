@@ -4,18 +4,22 @@ import App from './App.tsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import MainAbout from './components/main/MainAbout/MainAbout.tsx';
+import NotFoundPage from './components/not-found/NotFoundPage.tsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <NotFoundPage />,
     children: [
       {
-        path: ':id',
+        path: '/search/:id',
         element: <MainAbout />,
+        errorElement: <NotFoundPage />
       },
     ],
   },
+  
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
