@@ -6,7 +6,7 @@ import { HeaderContext } from '../HeaderContext';
 
 const SearchInput = () => {
   const useHeaderContext = useContext(HeaderContext);
-  
+
   if (useHeaderContext.searchParam === 'error')
     throw new Error('Error has been catched!');
   return (

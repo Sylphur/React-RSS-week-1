@@ -15,7 +15,7 @@ const routes = [
       {
         path: '/search/:id',
         element: <MainAbout />,
-        errorElement: <NotFoundPage />
+        errorElement: <NotFoundPage />,
       },
     ],
   },
@@ -28,4 +28,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   </React.StrictMode>
 );
 
-export const appRoutes = structuredClone(routes)
+export const appRoutes = structuredClone(routes);

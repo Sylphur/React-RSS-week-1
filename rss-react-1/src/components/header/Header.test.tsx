@@ -1,4 +1,10 @@
-import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  act,
+  waitFor,
+} from '@testing-library/react';
 import { describe, expect, test, vi } from 'vitest';
 import AppHeader from './AppHeader';
 
@@ -47,11 +53,11 @@ test('Verify that typing error renders the error boundary', async () => {
 
   await waitFor(() => {
     const errorMsg = screen.getByText('Something gone wrong');
-    expect (errorMsg).toBeInTheDocument();
-  })
+    expect(errorMsg).toBeInTheDocument();
+  });
   const errorBtn = screen.getByText<HTMLButtonElement>('Fix it!');
   fireEvent.click(errorBtn);
   await waitFor(() => {
-    expect (errorBtn).toBeInTheDocument();
-  })
+    expect(errorBtn).toBeInTheDocument();
+  });
 });

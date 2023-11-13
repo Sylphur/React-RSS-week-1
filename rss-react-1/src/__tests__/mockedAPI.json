@@ -1,56 +1,59 @@
 [
   {
-    "height" : 7,
-    "weight" : 69,
-    "id" : 1,
-    "name" : "bulbasaur",
-    "sprites" : {
-      "back_default" : "none",
-      "front_default" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+    "height": 7,
+    "weight": 69,
+    "id": 1,
+    "name": "bulbasaur",
+    "sprites": {
+      "back_default": "none",
+      "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
     },
-    "order" : 1,
-    "abilities" : [
+    "order": 1,
+    "abilities": [
       {
-      "ability" : {
-        "name" : "none",
-        "url" : "none"
-      }
+        "ability": {
+          "name": "none",
+          "url": "none"
+        }
       }
     ]
   },
   {
-    "height" : 10,
-    "weight" : 130,
-    "id" : 2,
-    "name" : "ivysaur",
-    "sprites" : {
-      "back_default" : "none",
-      "front_default" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"
+    "height": 10,
+    "weight": 130,
+    "id": 2,
+    "name": "ivysaur",
+    "sprites": {
+      "back_default": "none",
+      "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"
     },
-    "order" : 2,
-    "abilities" : [{
-      "ability" : {
-        "name" : "none",
-        "url" : "none"
+    "order": 2,
+    "abilities": [
+      {
+        "ability": {
+          "name": "none",
+          "url": "none"
+        }
       }
-    }]
+    ]
   },
   {
-    "height" : 20,
-    "weight" : 1000,
-    "id" : 3,
-    "name" : "venusaur",
-    "sprites" : {
-      "back_default" : "none",
-      "front_default" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"
-
+    "height": 20,
+    "weight": 1000,
+    "id": 3,
+    "name": "venusaur",
+    "sprites": {
+      "back_default": "none",
+      "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"
     },
-    "order" : 3,
-    "abilities" : [{
-      "ability" : {
-        "name" : "none",
-        "url" : "none"
+    "order": 3,
+    "abilities": [
+      {
+        "ability": {
+          "name": "none",
+          "url": "none"
+        }
       }
-    }]
+    ]
   }
 ]
