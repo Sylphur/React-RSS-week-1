@@ -1,6 +1,6 @@
 import { BrowserRouter, RouterProvider, createMemoryRouter } from 'react-router-dom'
 import { expect, test } from 'vitest'
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import "@testing-library/jest-dom";
 import App from './App';
 import NotFoundPage from './components/not-found/NotFoundPage';
@@ -29,6 +29,7 @@ test('Ensuring that the router works correctly', () => {
   });
   render(<RouterProvider router={baseRouter} />);
   expect(screen.getByText('Search')).toBeInTheDocument();
+  
 })
 
 test('Verify that typing error renders the error boundary', async () => {
@@ -46,9 +47,4 @@ test('Verify that typing error renders the error boundary', async () => {
       fireEvent.click(searchButton);
       expect !(screen.getByText<HTMLParagraphElement>('Loading ...')).toBeInTheDocument();
     });
-  // const errorBtn = screen.getByText<HTMLButtonElement>('Fix it!');
-  // fireEvent.click(errorBtn);
-  // await waitFor(() => {
-  //   expect (errorBtn).toBeInTheDocument();
-  // })
 });

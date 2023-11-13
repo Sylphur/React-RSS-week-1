@@ -6,6 +6,7 @@ import items from "./../../__tests__/mockedAPI.json";
 import AppMainCard from './MainCard/AppMainCard';
 import { PokemonResponse } from '../../shared/interfaces';
 import AppMain from './AppMain';
+import { AppContext } from '../../AppContext';
 
 test('Verify that the component renders the specified number of cards;', () => {
   const paginationData = {
@@ -38,4 +39,25 @@ test('Check that an appropriate message is displayed if no cards are present;', 
     </BrowserRouter>,
   )
   expect(screen.getByText('Nothing was found :/')).toBeInTheDocument();
+})
+
+test('Check that main page renders correctly', () => {
+  render(
+    <BrowserRouter>
+    <AppContext.Provider
+        value={{
+          takenPokemon: items,
+          setTakenPokemon: () => {},
+          isLoading: true,
+          setIsLoading: () => {},
+          paginationData: {currPage: 2, currPageSize: 15, totalCount: 31},
+          setPaginationData: () => {},
+          search: () => {},
+        }}
+      >
+        <AppMain></AppMain>
+      </AppContext.Provider>
+    </BrowserRouter>,
+  )
+  expect(screen.getByText('Loading ...')).toBeInTheDocument();
 })

@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import { expect, test, vi } from "vitest";
 import MainAbout from "./MainAbout";
@@ -27,4 +27,10 @@ test('Check that a loading indicator is displayed while fetching data;', async (
     </BrowserRouter>
   )
     expect (screen.getByText<HTMLParagraphElement>('Loading ...')).toBeInTheDocument();
+    const closeBtn = screen.getByText<HTMLButtonElement>('X');
+    expect (closeBtn).toBeInTheDocument();
+    fireEvent.click(closeBtn);
+    await waitFor(() => {
+      expect (closeBtn).toBeInTheDocument();
+    })
 })
