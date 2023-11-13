@@ -10,6 +10,7 @@ import { AppContext } from '../../AppContext';
 const AppMain = () => {
   const [paginationUrlData] = useSearchParams();
   const useAppContext = useContext(AppContext);
+  
 
   useEffect(() => {
     const page = paginationUrlData.get('page') ?? 1;

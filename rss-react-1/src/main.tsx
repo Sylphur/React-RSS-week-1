@@ -6,7 +6,7 @@ import './index.css';
 import MainAbout from './components/main/MainAbout/MainAbout.tsx';
 import NotFoundPage from './components/not-found/NotFoundPage.tsx';
 
-const router = createBrowserRouter([
+export const routes = [
   {
     path: '/',
     element: <App />,
@@ -19,8 +19,8 @@ const router = createBrowserRouter([
       },
     ],
   },
-  
-]);
+];
+const router = createBrowserRouter(routes);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
