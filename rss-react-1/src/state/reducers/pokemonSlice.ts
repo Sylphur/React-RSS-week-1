@@ -1,27 +1,26 @@
-import { getLocalSearchParam } from "../../services/local-storage.service";
 import { PokemonResponse } from "../../shared/interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PokemonState {
-  search: string,
   takenPokemon: PokemonResponse[],
+  isDetailsPageLoading: boolean
 }
 const initialState: PokemonState = {
-  search: getLocalSearchParam(),
-  takenPokemon: []
+  takenPokemon: [],
+  isDetailsPageLoading: false
 }
 
 const pokemonSlice = createSlice({
   name: 'pokemon',
   initialState,
   reducers: {
-    setSearch: (state, action: PayloadAction<string>) => {
-      state.search = action.payload
-    },
     setPokemon: (state, action: PayloadAction<PokemonResponse[]>) => {
       state.takenPokemon = action.payload
-    }
+    },
+    setIsDetailsPageLoading: (state, action: PayloadAction<boolean>) => {
+      state.isDetailsPageLoading = action.payload
+    },
   }
 })
-export const {setSearch, setPokemon} = pokemonSlice.actions;
+export const {setPokemon, setIsDetailsPageLoading} = pokemonSlice.actions;
 export default pokemonSlice.reducer;
