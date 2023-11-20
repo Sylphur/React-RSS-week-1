@@ -7,6 +7,8 @@ import {
 } from '@testing-library/react';
 import { describe, expect, test, vi } from 'vitest';
 import AppHeader from './AppHeader';
+import { Provider } from 'react-redux';
+import { store } from '../../state/store';
 
 describe('Search-input component', () => {
   const storage: Record<string, string> = {};
@@ -20,7 +22,11 @@ describe('Search-input component', () => {
   });
 
   test('Verify that clicking the Search button saves the entered value to the local storage', async () => {
-    render(<AppHeader></AppHeader>);
+    render(
+    <Provider store={store}>
+    <AppHeader></AppHeader>
+    </Provider>
+    );
 
     const searchInput = screen.getByRole('textbox');
     fireEvent.change(searchInput, { target: { value: 'TestValue' } });
@@ -37,7 +43,11 @@ describe('Search-input component', () => {
   });
 
   test('component retrieves the value from the local storage upon mounting', () => {
-    render(<AppHeader />);
+    render(
+      <Provider store={store}>
+        <AppHeader />
+    </Provider>
+    );
 
     expect(window.localStorage.getItem).toHaveBeenCalledWith('searchParam');
 
@@ -46,7 +56,11 @@ describe('Search-input component', () => {
 });
 
 test('Verify that typing error renders the error boundary', async () => {
-  render(<AppHeader></AppHeader>);
+  render(
+    <Provider store={store}>
+      <AppHeader />
+  </Provider>
+  );
 
   const searchInput = screen.getByRole('textbox');
   fireEvent.change(searchInput, { target: { value: 'error' } });

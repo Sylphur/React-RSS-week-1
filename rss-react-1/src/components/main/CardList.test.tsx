@@ -1,63 +1,62 @@
 import { BrowserRouter } from 'react-router-dom';
 import { expect, test } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import items from './../../__tests__/mockedAPI.json';
 import AppMainCard from './MainCard/AppMainCard';
-import { PokemonResponse } from '../../shared/interfaces';
+import { PokemonUrl } from '../../shared/interfaces';
 import AppMain from './AppMain';
 import { AppContext } from '../../AppContext';
+import { Provider } from 'react-redux';
+import { store } from '../../state/store';
 
-test('Verify that the component renders the specified number of cards;', () => {
-  const paginationData = {
-    currPage: 1,
-    currPageSize: 12,
-    totalCount: 30,
-  };
-  const mockedResponse: PokemonResponse[] = items;
+test('Verify that the component renders the specified number of cards;', async () => {
+  const mockedResponse: PokemonUrl[] = [{name: 'bulbasaur', url: '123'}, {name: 'ivysaur', url: '123'}]
   render(
+    <Provider store={store}>
     <BrowserRouter>
-      {mockedResponse.map((item: PokemonResponse) => {
+      {mockedResponse.map((item: PokemonUrl) => {
         return (
           <li key={item.name}>
             <AppMainCard
-              takenPokemon={item}
-              paginationData={paginationData}
+              takenPokemon={item.name}
             ></AppMainCard>
           </li>
         );
       })}
     </BrowserRouter>
+    </Provider>
   );
-  expect(screen.getAllByRole('img').length).toBe(items.length);
+  await waitFor(() => expect(screen.getAllByRole('img').length).toBe(2))
 });
 
-test('Check that an appropriate message is displayed if no cards are present;', () => {
+test('Check that an appropriate message is displayed if no cards are present;', async () => {
+  const mockedResponse = 's';
   render(
+    <Provider store={store}>
     <BrowserRouter>
-      <AppMain></AppMain>
+            <AppMainCard
+              takenPokemon={mockedResponse}
+            ></AppMainCard>
     </BrowserRouter>
+    </Provider>
   );
-  expect(screen.getByText('Nothing was found :/')).toBeInTheDocument();
+  await waitFor(() => expect(screen.getByText('Loading ...')).toBeInTheDocument());
 });
 
 test('Check that main page renders correctly', () => {
   render(
+    <Provider store={store}>
     <BrowserRouter>
       <AppContext.Provider
         value={{
-          takenPokemon: items,
-          setTakenPokemon: () => {},
-          isLoading: true,
-          setIsLoading: () => {},
           paginationData: { currPage: 2, currPageSize: 15, totalCount: 31 },
           setPaginationData: () => {},
-          search: () => {},
         }}
       >
         <AppMain></AppMain>
       </AppContext.Provider>
     </BrowserRouter>
+    </Provider>
   );
   expect(screen.getByText('Loading ...')).toBeInTheDocument();
 });

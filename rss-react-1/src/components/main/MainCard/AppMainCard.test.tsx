@@ -1,38 +1,38 @@
 import { BrowserRouter } from 'react-router-dom';
 import { expect, test } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import items from './../../../__tests__/mockedAPI.json';
 import AppMainCard from './AppMainCard';
 import { PokemonResponse } from '../../../shared/interfaces';
 import { generateLink } from '../../../services/link-generation.service';
+import { Provider } from 'react-redux';
+import { store } from '../../../state/store';
 
-test('Ensure that the card component renders the relevant card data;', () => {
-  const paginationData = {
-    currPage: 1,
-    currPageSize: 12,
-    totalCount: 30,
-  };
+test('Ensure that the card component renders the relevant card data;', async () => {
   const mockedResponse: PokemonResponse[] = items;
   render(
+    <Provider store={store}>
     <BrowserRouter>
       {mockedResponse.map((item: PokemonResponse) => {
         return (
           <li key={item.name}>
             <AppMainCard
-              takenPokemon={item}
-              paginationData={paginationData}
+              takenPokemon={item.name}
             ></AppMainCard>
           </li>
         );
       })}
     </BrowserRouter>
+    </Provider>
   );
-  for (const { name } of items) {
-    expect(
-      screen.getByText<HTMLParagraphElement>(`Name: ${name}`)
-    ).toBeInTheDocument();
-  }
+  await waitFor (() => {
+    for (const { name } of items) {
+      expect(
+        screen.getByText<HTMLParagraphElement>(`Name: ${name}`)
+      ).toBeInTheDocument();
+    }
+  })
 });
 
 test('Validate that clicking on a card opens a detailed card component', async () => {
@@ -43,12 +43,13 @@ test('Validate that clicking on a card opens a detailed card component', async (
   };
   const mockedResponse: PokemonResponse[] = items;
   render(
+    <Provider store={store}>
     <BrowserRouter>
       <AppMainCard
-        takenPokemon={mockedResponse[0]}
-        paginationData={paginationData}
+        takenPokemon={mockedResponse[0].name}
       ></AppMainCard>
     </BrowserRouter>
+    </Provider>
   );
   const link = screen.getByRole('link');
   expect(link).toHaveAttribute(
