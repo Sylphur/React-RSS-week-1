@@ -8,7 +8,7 @@ const SearchButton = () => {
       <button
         type="submit"
         onClick={() => {
-          setSearch(getLocalSearchParam())
+          setSearch(getLocalSearchParam());
         }}
       >
         Search

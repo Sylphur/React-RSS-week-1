@@ -24,7 +24,7 @@ const MainAbout = () => {
   useEffect(() => {
     const init = async () => {
       setIsDetailsPageLoading(isFetching);
-    }
+    };
     init();
   }, [isFetching, setIsDetailsPageLoading]);
 

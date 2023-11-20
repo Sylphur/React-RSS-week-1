@@ -8,7 +8,8 @@ import { useActions } from '../../../state/redux-hooks';
 const MainPaginator = () => {
   const navigate = useNavigate();
   const useAppContext = useContext(AppContext);
-  const { incrementCurrPage, decrementCurrPage, setCurrPage, setCurrPageSize } = useActions();
+  const { incrementCurrPage, decrementCurrPage, setCurrPage, setCurrPageSize } =
+    useActions();
 
   const nextPage = () => {
     useAppContext.setPaginationData((prevState) => {
@@ -38,7 +39,6 @@ const MainPaginator = () => {
     });
     setCurrPage(1);
     setCurrPageSize(+event.target.value);
-
   };
   const getNavigate = (pageNumber: number, pageSize: number) => {
     navigate(generateLink(pageNumber, pageSize));

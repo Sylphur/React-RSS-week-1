@@ -13,39 +13,39 @@ const AppMainCard = (props: CardProps) => {
   const paginationState = useAppSelector((state) => state.pagination);
   const { data, isFetching, isError } = useGetPokemonQuery(props.takenPokemon);
 
-  if (isFetching) return (
-    <>
-     <p>Loading ...</p>     
-    </>
-  )
-  if (isError || !data) return (
-    <div className='main-card-error'>
-      <p>Nothing was found :/</p>
-      <p>Try Pikachu, Ditto, Meowth or smth</p>
-    </div>
-  )
-  else return (
-    <>
-      <Link
-        to={generateLink(
-          paginationState.currPage,
-          paginationState.currPageSize,
-          data.id
-        )}
-        className="main-card-link-wrapper"
-      >
-        <div className="main-card-wrapper">
-          <img
-            src={data.sprites.front_default}
-            alt="pokemon-img"
-          />
-          <p>Name: {data.name}</p>
-          <p>Height: {data.height}</p>
-          <p>Weight: {data.weight}</p>
-        </div>
-      </Link>
-    </>
-  );
+  if (isFetching)
+    return (
+      <>
+        <p>Loading ...</p>
+      </>
+    );
+  if (isError || !data)
+    return (
+      <div className="main-card-error">
+        <p>Nothing was found :/</p>
+        <p>Try Pikachu, Ditto, Meowth or smth</p>
+      </div>
+    );
+  else
+    return (
+      <>
+        <Link
+          to={generateLink(
+            paginationState.currPage,
+            paginationState.currPageSize,
+            data.id
+          )}
+          className="main-card-link-wrapper"
+        >
+          <div className="main-card-wrapper">
+            <img src={data.sprites.front_default} alt="pokemon-img" />
+            <p>Name: {data.name}</p>
+            <p>Height: {data.height}</p>
+            <p>Weight: {data.weight}</p>
+          </div>
+        </Link>
+      </>
+    );
 };
 
 export default AppMainCard;
