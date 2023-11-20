@@ -20,7 +20,7 @@ const AppMain = () => {
   const { setPokemon, setIsCardsLoading, setCurrPage, setCurrPageSize } = useActions();
 
   const offset = (paginationState.currPage - 1) * paginationState.currPageSize;
-  const { data, isLoading } = useGetAllPokemonListQuery({
+  const { data, isFetching } = useGetAllPokemonListQuery({
     limit: paginationState.currPageSize,
     offset
   })
@@ -54,7 +54,7 @@ const AppMain = () => {
     if (paginationState.currPageSize !== actualPageSize) setCurrPageSize(+actualPageSize)
     const init = async () => {
       data && setPokemon(data.results);
-      setIsCardsLoading(isLoading)
+      setIsCardsLoading(isFetching)
     }
     init();
   }, [data]);
@@ -62,7 +62,7 @@ const AppMain = () => {
   if (useAppContext.takenPokemon.length === 0)
     return (
       <main className="app-main-wrong">
-        <AppLoader isLoading={useAppContext.isLoading}></AppLoader>
+        <AppLoader isLoading={pokemonState.isCardsLoading}></AppLoader>
         <p>Nothing was found :/</p>
         <p>Try Pikachu, Ditto, Meowth or smth</p>
         <div className="app-main-error-tip">
@@ -73,7 +73,7 @@ const AppMain = () => {
   else
     return (
       <main className="app-main">
-        <AppLoader isLoading={useAppContext.isLoading}></AppLoader>
+        <AppLoader isLoading={pokemonState.isCardsLoading}></AppLoader>
         <article className="app-main-error-tip">
           <span>Tip: type &apos;error&apos; to break the app</span>
         </article>
