@@ -49,7 +49,6 @@ const MainPaginator = () => {
       useAppContext.paginationData.currPage,
       useAppContext.paginationData.currPageSize
     );
-    useAppContext.search(useAppContext.setIsLoading);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useAppContext.paginationData]);
 

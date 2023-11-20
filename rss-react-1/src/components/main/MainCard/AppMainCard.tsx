@@ -1,33 +1,48 @@
 import { generateLink } from '../../../services/link-generation.service';
-import { PaginationData, PokemonResponse } from '../../../shared/interfaces';
 import { Link } from 'react-router-dom';
 
 import './AppMainCard.scss';
+import { useAppSelector } from '../../../state/redux-hooks';
+import { useGetPokemonQuery } from '../../../services/api-query.service';
 
 interface CardProps {
-  takenPokemon: PokemonResponse;
-  paginationData: PaginationData;
+  takenPokemon: string;
 }
 
 const AppMainCard = (props: CardProps) => {
-  return (
+  const paginationState = useAppSelector((state) => state.pagination);
+  const { data, isFetching, isError } = useGetPokemonQuery(props.takenPokemon);
+  console.log('data fetching!', data?.name);
+
+  if (isFetching) return (
+    <>
+     <p>Loading ...</p>     
+    </>
+  )
+  if (isError || !data) return (
+    <div className='main-card-error'>
+      <p>Nothing was found :/</p>
+      <p>Try Pikachu, Ditto, Meowth or smth</p>
+    </div>
+  )
+  else return (
     <>
       <Link
         to={generateLink(
-          props.paginationData.currPage,
-          props.paginationData.currPageSize,
-          props.takenPokemon.id
+          paginationState.currPage,
+          paginationState.currPageSize,
+          data.id
         )}
         className="main-card-link-wrapper"
       >
         <div className="main-card-wrapper">
           <img
-            src={props.takenPokemon.sprites.front_default}
+            src={data.sprites.front_default}
             alt="pokemon-img"
           />
-          <p>Name: {props.takenPokemon.name}</p>
-          <p>Height: {props.takenPokemon.height}</p>
-          <p>Weight: {props.takenPokemon.weight}</p>
+          <p>Name: {data.name}</p>
+          <p>Height: {data.height}</p>
+          <p>Weight: {data.weight}</p>
         </div>
       </Link>
     </>

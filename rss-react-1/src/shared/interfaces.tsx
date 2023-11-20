@@ -31,13 +31,8 @@ export interface HeaderContextProps {
   setSearchParam: React.Dispatch<React.SetStateAction<string>>;
 }
 export interface AppContextProps {
-  takenPokemon: PokemonResponse[];
-  setTakenPokemon: React.Dispatch<React.SetStateAction<PokemonResponse[]>>;
-  isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   paginationData: PaginationData;
   setPaginationData: React.Dispatch<React.SetStateAction<PaginationData>>;
-  search: (setIsLoading: (isLoading: boolean) => void) => void;
 }
 
 // Other interfaces

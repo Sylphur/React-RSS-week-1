@@ -11,7 +11,6 @@ export const store = configureStore({
     pokemon: pokemonSlice,
     pagination: paginationSlice
   },
-  devTools: process.env.NODE_ENV !== 'production',
   middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware().concat(pokemonAPI.middleware)
 })
