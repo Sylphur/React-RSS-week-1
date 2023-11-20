@@ -12,7 +12,6 @@ interface CardProps {
 const AppMainCard = (props: CardProps) => {
   const paginationState = useAppSelector((state) => state.pagination);
   const { data, isFetching, isError } = useGetPokemonQuery(props.takenPokemon);
-  console.log('data fetching!', data?.name);
 
   if (isFetching) return (
     <>

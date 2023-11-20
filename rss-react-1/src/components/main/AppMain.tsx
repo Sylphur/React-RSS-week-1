@@ -22,14 +22,12 @@ const AppMain = () => {
 
   useEffect(() => {
     const actualPage = paginationUrlData.get('page') ?? 1;
-    console.log('actual page: ', actualPage);
     const actualPageSize = paginationUrlData.get('pageSize') ?? 12;
     if (paginationState.currPage !== actualPage) setCurrPage(+actualPage)
     if (paginationState.currPageSize !== actualPageSize) setCurrPageSize(+actualPageSize)
     const init = async () => {
       data && setPokemon(data.results);
       setIsCardsLoading(isFetching);
-      console.log('fetching status: ', isFetching);
     }
     init();
   }, [data, isFetching, paginationState.currPage, paginationState.currPageSize, paginationUrlData, setCurrPage, setCurrPageSize, setIsCardsLoading, setPokemon]);
