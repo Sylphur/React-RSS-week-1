@@ -18,8 +18,6 @@ export interface PokemonResponse {
 }
 export interface PokemonListResponse {
   count: number;
-  next: string | null;
-  previous: string | null;
   results: PokemonUrl[];
 }
 export interface PokemonUrl {

@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import './MainPaginator.scss';
 import { generateLink } from '../../../services/link-generation.service';
 import { AppContext } from '../../../AppContext';
+import { useActions } from '../../../state/redux-hooks';
 
 const MainPaginator = () => {
   const navigate = useNavigate();
   const useAppContext = useContext(AppContext);
+  const { incrementCurrPage, decrementCurrPage, setCurrPage, setCurrPageSize } = useActions();
 
   const nextPage = () => {
     useAppContext.setPaginationData((prevState) => {
@@ -15,6 +17,7 @@ const MainPaginator = () => {
         currPage: prevState.currPage + 1,
       };
     });
+    incrementCurrPage();
   };
   const previousPage = () => {
     useAppContext.setPaginationData((prevState) => {
@@ -23,6 +26,7 @@ const MainPaginator = () => {
         currPage: prevState.currPage - 1,
       };
     });
+    decrementCurrPage();
   };
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     useAppContext.setPaginationData((prevState) => {
@@ -32,6 +36,9 @@ const MainPaginator = () => {
         currPageSize: +event.target.value,
       };
     });
+    setCurrPage(1);
+    setCurrPageSize(+event.target.value);
+
   };
   const getNavigate = (pageNumber: number, pageSize: number) => {
     navigate(generateLink(pageNumber, pageSize));

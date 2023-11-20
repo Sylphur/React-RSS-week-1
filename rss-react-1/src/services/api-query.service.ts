@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { PokemonListResponse, PokemonResponse } from "../shared/interfaces";
 
-interface getAllPokemonsProps {
+interface getAllPokemonProps {
+  limit: number,
   offset: number
 }
 export const pokemonAPI = createApi({
@@ -9,10 +10,11 @@ export const pokemonAPI = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://pokeapi.co/api/v2/pokemon' }),
   endpoints: (builder) => {
     return {
-      getAllPokemonList: builder.query<PokemonListResponse, getAllPokemonsProps>({
-        query: ({ offset }) => ({
+      getAllPokemonList: builder.query<PokemonListResponse, getAllPokemonProps>({
+        query: ({ limit, offset }) => ({
           url: '',
           params: {
+            limit,
             offset
           }
         })

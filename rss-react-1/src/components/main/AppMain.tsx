@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import './AppMain.scss';
 import AppMainCard from './MainCard/AppMainCard';
@@ -6,10 +6,25 @@ import MainPaginator from './MainPaginator/MainPaginator';
 import { possiblePageSize } from '../../shared/constants';
 import AppLoader from '../loader/AppLoader';
 import { AppContext } from '../../AppContext';
+import { useActions, useAppSelector } from '../../state/redux-hooks';
+import { PaginationData } from '../../shared/interfaces';
+import { useGetAllPokemonListQuery, useGetPokemonQuery } from '../../services/api-query.service';
 
 const AppMain = () => {
   const [paginationUrlData] = useSearchParams();
-  const useAppContext = useContext(AppContext);
+  const useAppContext = useContext(AppContext); // context
+
+  const searchState = useAppSelector((state) => state.search);
+  const pokemonState = useAppSelector((state) => state.pokemon);
+  const paginationState = useAppSelector((state) => state.pagination)
+  const { setPokemon, setIsCardsLoading, setCurrPage, setCurrPageSize } = useActions();
+
+  const offset = (paginationState.currPage - 1) * paginationState.currPageSize;
+  const { data, isLoading } = useGetAllPokemonListQuery({
+    limit: paginationState.currPageSize,
+    offset
+  })
+  console.log(data);
 
   useEffect(() => {
     const page = paginationUrlData.get('page') ?? 1;
@@ -28,9 +43,21 @@ const AppMain = () => {
         ...useAppContext.paginationData,
         currPageSize: +pageSize,
       });
+      
     useAppContext.search(useAppContext.setIsLoading);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    const actualPage = paginationUrlData.get('page') ?? 1;
+    const actualPageSize = paginationUrlData.get('pageSize') ?? 12;
+    if (paginationState.currPage !== actualPage) setCurrPage(+actualPage)
+    if (paginationState.currPageSize !== actualPageSize) setCurrPageSize(+actualPageSize)
+    const init = async () => {
+      data && setPokemon(data.results);
+      setIsCardsLoading(isLoading)
+    }
+    init();
+  }, [data]);
 
   if (useAppContext.takenPokemon.length === 0)
     return (

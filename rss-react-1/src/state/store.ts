@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { pokemonAPI } from "../services/api-query.service";
 import searchSlice from "./reducers/searchSlice";
 import pokemonSlice from "./reducers/pokemonSlice";
+import paginationSlice from "./reducers/paginationSlice";
 
 export const store = configureStore({
   reducer: {
     [pokemonAPI.reducerPath]: pokemonAPI.reducer,
     search: searchSlice,
-    pokemon: pokemonSlice
+    pokemon: pokemonSlice,
+    pagination: paginationSlice
   },
   devTools: process.env.NODE_ENV !== 'production',
   middleware: (getDefaultMiddleware) => 
