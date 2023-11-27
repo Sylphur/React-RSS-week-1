@@ -4,7 +4,6 @@ import { PokemonListResponse, PokemonResponse } from '../shared/interfaces';
 interface getAllPokemonProps {
   limit: number;
   offset: number;
-  search: string
 }
 export const pokemonAPI = createApi({
   reducerPath: 'Pokemon API',
@@ -13,8 +12,8 @@ export const pokemonAPI = createApi({
     return {
       getAllPokemonList: builder.query<PokemonListResponse, getAllPokemonProps>(
         {
-          query: ({ limit, offset, search }) => ({
-            url: `/${search}`,
+          query: ({ limit, offset }) => ({
+            url: `/`,
             params: {
               limit,
               offset,

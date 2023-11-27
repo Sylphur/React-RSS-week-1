@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   pokemon: pokemonSlice,
   // pagination: paginationSlice,
 })
-const hydrationReducer: typeof rootReducer = ( // eslint-disable-line
+const hydrationReducer = ( // eslint-disable-line
   state: ReturnType<typeof rootReducer>,
   action: AnyAction
 ) => {

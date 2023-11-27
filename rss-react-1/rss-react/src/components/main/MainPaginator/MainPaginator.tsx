@@ -1,71 +1,69 @@
 import { ChangeEvent, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './MainPaginator.scss';
+// import './MainPaginator.scss';
 import { generateLink } from '../../../services/link-generation.service';
-import { AppContext } from '../../../AppContext';
 import { useActions } from '../../../state/redux-hooks';
+import { useRouter } from 'next/router';
 
 const MainPaginator = () => {
-  const navigate = useNavigate();
-  const useAppContext = useContext(AppContext);
-  const { incrementCurrPage, decrementCurrPage, setCurrPage, setCurrPageSize } =
-    useActions();
+  // const navigate = useNavigate();
+  // const useAppContext = useContext(AppContext);
+  const router = useRouter();
+  const { limit, page, search } = router.query;
+  const actualPage = page ? Number(page) : 1;
+  const actualPageSize = limit ? Number(limit) : 12;
+  // const { incrementCurrPage, decrementCurrPage, setCurrPage, setCurrPageSize } =
+  //   useActions();
 
-  const nextPage = () => {
-    useAppContext.setPaginationData((prevState) => {
-      return {
-        ...prevState,
-        currPage: prevState.currPage + 1,
-      };
-    });
-    incrementCurrPage();
+  const nextPage = async () => {
+    await router.push({
+      query: {search: search, page: actualPage + 1, limit: limit}
+    })
   };
-  const previousPage = () => {
-    useAppContext.setPaginationData((prevState) => {
-      return {
-        ...prevState,
-        currPage: prevState.currPage - 1,
-      };
-    });
-    decrementCurrPage();
+  const previousPage = async () => {
+    await router.push({
+      query: {search: search, page: actualPage - 1, limit: limit}
+    })
   };
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    useAppContext.setPaginationData((prevState) => {
-      return {
-        ...prevState,
-        currPage: 1,
-        currPageSize: +event.target.value,
-      };
-    });
-    setCurrPage(1);
-    setCurrPageSize(+event.target.value);
+  const handleChange = async (event: ChangeEvent<HTMLSelectElement>) => {
+    await router.push({
+      query: {search: search, page: 1, limit: +event.target.value}
+    })
+    // useAppContext.setPaginationData((prevState) => {
+    //   return {
+    //     ...prevState,
+    //     currPage: 1,
+    //     currPageSize: +event.target.value,
+    //   };
+    // });
+    // setCurrPage(1);
+    // setCurrPageSize(+event.target.value);
   };
-  const getNavigate = (pageNumber: number, pageSize: number) => {
-    navigate(generateLink(pageNumber, pageSize));
-  };
+  // const getNavigate = (pageNumber: number, pageSize: number) => {
+  //   navigate(generateLink(pageNumber, pageSize));
+  // };
 
-  useEffect(() => {
-    getNavigate(
-      useAppContext.paginationData.currPage,
-      useAppContext.paginationData.currPageSize
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [useAppContext.paginationData]);
+  // useEffect(() => {
+  //   getNavigate(
+  //     useAppContext.paginationData.currPage,
+  //     useAppContext.paginationData.currPageSize
+  //   );
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [useAppContext.paginationData]);
 
   return (
     <ul className="pagination-wrapper">
       <button
-        disabled={useAppContext.paginationData.currPage <= 1}
+        disabled={actualPage <= 1}
         onClick={previousPage}
       >
         {'<'}
       </button>
-      <li>{useAppContext.paginationData.currPage}</li>
+      <li>{actualPage}</li>
       <button
         disabled={
-          useAppContext.paginationData.currPage >=
-          useAppContext.paginationData.totalCount /
-            useAppContext.paginationData.currPageSize
+          actualPage >=
+          400 /
+            actualPageSize
         }
         onClick={nextPage}
       >
@@ -74,11 +72,11 @@ const MainPaginator = () => {
       <li>
         <select
           className="pagination-select"
-          value={useAppContext.paginationData.currPageSize}
+          value={actualPageSize}
           onChange={handleChange}
           name="pagination-select"
         >
-          {[4, 8, 12, 20].map((value) => (
+          {[6, 12, 18, 24].map((value) => (
             <option key={value} value={value}>
               {value}
             </option>

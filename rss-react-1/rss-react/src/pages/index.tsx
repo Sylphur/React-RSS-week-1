@@ -1,12 +1,15 @@
 import Head from 'next/head';
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { GetServerSideProps } from "next";
 import { storeWrapper } from '@/state/store';
 import { getRunningQueriesThunk, pokemonAPI } from '@/services/api-query.service';
 import { PokemonState } from '@/state/reducers/pokemonSlice';
 import { useAppSelector } from '@/state/redux-hooks';
+import AppMain from '@/components/main/AppMain';
+import { searchActions } from '@/state/reducers/searchSlice';
 // import styles from '@/styles/Home.module.scss';
 // className={`${styles.main}`}
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const getServerSideProps: GetServerSideProps<{ data: { cards: PokemonState; }; }> =
   storeWrapper.getServerSideProps((store) => async (context) => {
     const { limit, search, page } = context.query;
@@ -18,19 +21,16 @@ export const getServerSideProps: GetServerSideProps<{ data: { cards: PokemonStat
     const currentOffset = limitNumber * (pageNumber - 1);
     const searchString = search?.toString() || '';
     
-    if (searchString === '') {
       store.dispatch(
         pokemonAPI.endpoints.getAllPokemonList.initiate({
            limit: limitNumber2,
            offset: currentOffset,
-           search: searchString,
          })
        );
-    } else {
-      store.dispatch(
-        pokemonAPI.endpoints.getPokemon.initiate( searchString)
-       );
-    }
+       store.dispatch(
+        searchActions.setSearch(searchString)
+       )
+
     await Promise.all(store.dispatch(getRunningQueriesThunk()));
     return {
       props: {
@@ -43,7 +43,10 @@ export const getServerSideProps: GetServerSideProps<{ data: { cards: PokemonStat
 //{data}: InferGetServerSidePropsType<typeof getServerSideProps>
 export default function Home() {
   const pokemon = useAppSelector((state) => state.pokemon.takenPokemon);
+  const searc = useAppSelector((state) => state.search.search);
   console.log('actual pokemon :', pokemon);
+  console.log('actual serach: ', searc);
+  
   return (
     <>
       <Head>
@@ -53,10 +56,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <p>orange</p>
-        {pokemon.map((item) => (
-          <p key={item.name}>{item.name}</p>
-        ))}
+        <AppMain></AppMain>
       </main>
     </>
   );

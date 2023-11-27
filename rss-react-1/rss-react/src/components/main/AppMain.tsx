@@ -1,48 +1,52 @@
 import { useEffect } from 'react';
-import { Outlet, useSearchParams } from 'react-router-dom';
-import './AppMain.scss';
+// import './AppMain.scss';
 import AppMainCard from './MainCard/AppMainCard';
 import MainPaginator from './MainPaginator/MainPaginator';
 import AppLoader from '../loader/AppLoader';
 import { useActions, useAppSelector } from '../../state/redux-hooks';
 import { useGetAllPokemonListQuery } from '../../services/api-query.service';
+import { storeWrapper } from '@/state/store';
+import { useRouter } from 'next/router';
+import MainAbout from './MainAbout/MainAbout';
 
 const AppMain = () => {
-  const [paginationUrlData] = useSearchParams();
+  const router = useRouter();
+  const { limit, search, page, id } = router.query;
+  // const [paginationUrlData] = useSearchParams();
   const searchState = useAppSelector((state) => state.search);
   const pokemonState = useAppSelector((state) => state.pokemon);
-  const paginationState = useAppSelector((state) => state.pagination);
-  const { setPokemon, setIsCardsLoading, setCurrPage, setCurrPageSize } =
-    useActions();
+  // const paginationState = useAppSelector((state) => state.pagination);
+  // const { setPokemon, setIsCardsLoading, setCurrPage, setCurrPageSize } =
+  //   useActions();
 
-  const offset = (paginationState.currPage - 1) * paginationState.currPageSize;
-  const { data, isFetching } = useGetAllPokemonListQuery({
-    limit: paginationState.currPageSize,
-    offset,
-  });
+  // const offset = (paginationState.currPage - 1) * paginationState.currPageSize;
+  // const { data, isFetching } = useGetAllPokemonListQuery({
+  //   limit: paginationState.currPageSize,
+  //   offset,
+  // });
 
-  useEffect(() => {
-    const actualPage = paginationUrlData.get('page') ?? 1;
-    const actualPageSize = paginationUrlData.get('pageSize') ?? 12;
-    if (paginationState.currPage !== actualPage) setCurrPage(+actualPage);
-    if (paginationState.currPageSize !== actualPageSize)
-      setCurrPageSize(+actualPageSize);
-    const init = async () => {
-      data && setPokemon(data.results);
-      setIsCardsLoading(isFetching);
-    };
-    init();
-  }, [
-    data,
-    isFetching,
-    paginationState.currPage,
-    paginationState.currPageSize,
-    paginationUrlData,
-    setCurrPage,
-    setCurrPageSize,
-    setIsCardsLoading,
-    setPokemon,
-  ]);
+  // useEffect(() => {
+  //   const actualPage = paginationUrlData.get('page') ?? 1;
+  //   const actualPageSize = paginationUrlData.get('pageSize') ?? 12;
+  //   if (paginationState.currPage !== actualPage) setCurrPage(+actualPage);
+  //   if (paginationState.currPageSize !== actualPageSize)
+  //     setCurrPageSize(+actualPageSize);
+  //   const init = async () => {
+  //     data && setPokemon(data.results);
+  //     setIsCardsLoading(isFetching);
+  //   };
+  //   init();
+  // }, [
+  //   data,
+  //   isFetching,
+  //   paginationState.currPage,
+  //   paginationState.currPageSize,
+  //   paginationUrlData,
+  //   setCurrPage,
+  //   setCurrPageSize,
+  //   setIsCardsLoading,
+  //   setPokemon,
+  // ]);
 
   return (
     <main className="app-main">
@@ -56,7 +60,7 @@ const AppMain = () => {
             <>
               <MainPaginator></MainPaginator>
               <ul className="app-main-ul">
-                {data?.results.map((item) => (
+                {pokemonState.takenPokemon.map((item) => (
                   <li key={item.name}>
                     <AppMainCard takenPokemon={item.name}></AppMainCard>
                   </li>
@@ -74,7 +78,7 @@ const AppMain = () => {
             </>
           )}
         </section>
-        <Outlet />
+        {id && <MainAbout />}
       </div>
     </main>
   );

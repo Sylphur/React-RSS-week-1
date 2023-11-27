@@ -1,4 +1,4 @@
-import './AppLoader.scss';
+// import './AppLoader.scss';
 
 interface LoaderState {
   isLoading: boolean;

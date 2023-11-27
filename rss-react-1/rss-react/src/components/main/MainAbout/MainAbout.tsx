@@ -1,25 +1,21 @@
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-
-import './MainAbout.scss';
+// import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import AppLoader from '../../loader/AppLoader';
 import { useEffect } from 'react';
-import { generateLink } from '../../../services/link-generation.service';
 import { useActions } from '../../../state/redux-hooks';
 import { useGetPokemonQuery } from '../../../services/api-query.service';
+import { useRouter } from 'next/router';
 
 const MainAbout = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
+  const { id, limit, page, search } = router.query;
 
   const { setIsDetailsPageLoading } = useActions();
   const { data, isFetching } = useGetPokemonQuery(id + '');
 
-  const returnToSearch = () => {
-    const page = searchParams.get('page') || 1;
-    const pageSize = searchParams.get('pageSize') || 12;
-
-    navigate(generateLink(+page, +pageSize));
+  const returnToSearch = async () => {
+    await router.push({
+      query: {limit: limit, page: page, search: search}
+    })
   };
   useEffect(() => {
     const init = async () => {
@@ -42,10 +38,13 @@ const MainAbout = () => {
         </div>
         <p>Height: {data?.height}</p>
         <p>Weight: {data?.weight}</p>
-        <h4 className="about-abilities">Abilities:</h4>
+        <div className='about-abilities-wrapper'>
+          <h4 className="about-abilities">Abilities:</h4>
         {data?.abilities.map((ability) => (
           <p key={ability.ability.name}>{ability.ability.name}</p>
         ))}
+        </div>
+        
         <button className="about-close-btn" onClick={returnToSearch}>
           X
         </button>

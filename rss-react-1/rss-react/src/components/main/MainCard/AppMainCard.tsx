@@ -1,22 +1,27 @@
 import { generateLink } from '../../../services/link-generation.service';
-import { Link } from 'react-router-dom';
 
-import './AppMainCard.scss';
+// import './AppMainCard.scss';
 import { useAppSelector } from '../../../state/redux-hooks';
 import { useGetPokemonQuery } from '../../../services/api-query.service';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface CardProps {
   takenPokemon: string;
 }
 
 const AppMainCard = (props: CardProps) => {
-  const paginationState = useAppSelector((state) => state.pagination);
+  const router = useRouter();
+  const { limit, page, search } = router.query;
+  const actualPage = page ? Number(page) : 1;
+  const actualPageSize = limit ? Number(limit) : 12;
+  const actualSearch = search ? search+'' : '';
   const { data, isFetching, isError } = useGetPokemonQuery(props.takenPokemon);
 
   if (isFetching)
     return (
       <>
-        <p>Loading ...</p>
+        <p>Fetching ...</p>
       </>
     );
   if (isError || !data)
@@ -30,11 +35,13 @@ const AppMainCard = (props: CardProps) => {
     return (
       <>
         <Link
-          to={generateLink(
-            paginationState.currPage,
-            paginationState.currPageSize,
-            data.id
-          )}
+          href={generateLink(
+            actualPage,
+            actualPageSize,
+            actualSearch,
+            props.takenPokemon
+          )
+          }
           className="main-card-link-wrapper"
         >
           <div className="main-card-wrapper">
