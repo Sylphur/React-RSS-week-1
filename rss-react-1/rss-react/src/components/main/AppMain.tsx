@@ -1,52 +1,15 @@
-import { useEffect } from 'react';
-// import './AppMain.scss';
 import AppMainCard from './MainCard/AppMainCard';
 import MainPaginator from './MainPaginator/MainPaginator';
 import AppLoader from '../loader/AppLoader';
-import { useActions, useAppSelector } from '../../state/redux-hooks';
-import { useGetAllPokemonListQuery } from '../../services/api-query.service';
-import { storeWrapper } from '@/state/store';
+import { useAppSelector } from '../../state/redux-hooks';
 import { useRouter } from 'next/router';
 import MainAbout from './MainAbout/MainAbout';
 
 const AppMain = () => {
   const router = useRouter();
-  const { limit, search, page, id } = router.query;
-  // const [paginationUrlData] = useSearchParams();
+  const { id } = router.query;
   const searchState = useAppSelector((state) => state.search);
   const pokemonState = useAppSelector((state) => state.pokemon);
-  // const paginationState = useAppSelector((state) => state.pagination);
-  // const { setPokemon, setIsCardsLoading, setCurrPage, setCurrPageSize } =
-  //   useActions();
-
-  // const offset = (paginationState.currPage - 1) * paginationState.currPageSize;
-  // const { data, isFetching } = useGetAllPokemonListQuery({
-  //   limit: paginationState.currPageSize,
-  //   offset,
-  // });
-
-  // useEffect(() => {
-  //   const actualPage = paginationUrlData.get('page') ?? 1;
-  //   const actualPageSize = paginationUrlData.get('pageSize') ?? 12;
-  //   if (paginationState.currPage !== actualPage) setCurrPage(+actualPage);
-  //   if (paginationState.currPageSize !== actualPageSize)
-  //     setCurrPageSize(+actualPageSize);
-  //   const init = async () => {
-  //     data && setPokemon(data.results);
-  //     setIsCardsLoading(isFetching);
-  //   };
-  //   init();
-  // }, [
-  //   data,
-  //   isFetching,
-  //   paginationState.currPage,
-  //   paginationState.currPageSize,
-  //   paginationUrlData,
-  //   setCurrPage,
-  //   setCurrPageSize,
-  //   setIsCardsLoading,
-  //   setPokemon,
-  // ]);
 
   return (
     <main className="app-main">

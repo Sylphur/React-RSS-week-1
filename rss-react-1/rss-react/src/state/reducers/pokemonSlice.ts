@@ -1,7 +1,6 @@
 import { pokemonAPI } from '@/services/api-query.service';
 import { PokemonUrl } from '../../shared/interfaces';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { HYDRATE } from 'next-redux-wrapper';
 
 export interface PokemonState {
   takenPokemon: PokemonUrl[];

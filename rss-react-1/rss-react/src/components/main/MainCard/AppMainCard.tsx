@@ -1,7 +1,4 @@
 import { generateLink } from '../../../services/link-generation.service';
-
-// import './AppMainCard.scss';
-import { useAppSelector } from '../../../state/redux-hooks';
 import { useGetPokemonQuery } from '../../../services/api-query.service';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
