@@ -6,7 +6,8 @@ export default function NotFoundPage() {
 
   return (
     <>
-      <p>Page is not found!</p>
+      <h2>404: Not Found</h2>
+      <p>The page you want to accept is not exist :(</p>
     </>
   );
 }
