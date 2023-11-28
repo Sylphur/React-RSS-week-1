@@ -1,4 +1,3 @@
-import { BrowserRouter } from 'react-router-dom';
 import { expect, test } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -8,12 +7,13 @@ import { PokemonResponse } from '../../../shared/interfaces';
 import { generateLink } from '../../../services/link-generation.service';
 import { Provider } from 'react-redux';
 import { store } from '../../../state/store';
+import { MemoryRouterProvider } from "next-router-mock/MemoryRouterProvider";
 
 test('Ensure that the card component renders the relevant card data;', async () => {
   const mockedResponse: PokemonResponse[] = items;
   render(
     <Provider store={store}>
-    <BrowserRouter>
+    <MemoryRouterProvider>
       {mockedResponse.map((item: PokemonResponse) => {
         return (
           <li key={item.name}>
@@ -23,7 +23,7 @@ test('Ensure that the card component renders the relevant card data;', async () 
           </li>
         );
       })}
-    </BrowserRouter>
+    </MemoryRouterProvider>
     </Provider>
   );
   await waitFor (() => {
@@ -44,11 +44,11 @@ test('Validate that clicking on a card opens a detailed card component', async (
   const mockedResponse: PokemonResponse[] = items;
   render(
     <Provider store={store}>
-    <BrowserRouter>
+    <MemoryRouterProvider>
       <AppMainCard
         takenPokemon={mockedResponse[0].name}
       ></AppMainCard>
-    </BrowserRouter>
+    </MemoryRouterProvider>
     </Provider>
   );
   const link = screen.getByRole('link');
@@ -57,7 +57,8 @@ test('Validate that clicking on a card opens a detailed card component', async (
     generateLink(
       paginationData.currPage,
       paginationData.currPageSize,
-      mockedResponse[0].id
+      '',
+      mockedResponse[0].name + '',
     )
   );
 });

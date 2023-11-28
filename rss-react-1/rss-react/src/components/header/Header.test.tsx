@@ -7,8 +7,10 @@ import {
 } from '@testing-library/react';
 import { describe, expect, test, vi } from 'vitest';
 import AppHeader from './AppHeader';
-import { Provider } from 'react-redux';
-import { store } from '../../state/store';
+import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
+import { createMockRouter } from '@/__tests__/utils/createMockRouter';
+
+// const useRouter = vi.spyOn(require('next/router'), 'useRouter');
 
 describe('Search-input component', () => {
   const storage: Record<string, string> = {};
@@ -23,43 +25,45 @@ describe('Search-input component', () => {
 
   test('Verify that clicking the Search button saves the entered value to the local storage', async () => {
     render(
-    <Provider store={store}>
-    <AppHeader></AppHeader>
-    </Provider>
+    <RouterContext.Provider value={createMockRouter({query: {page: "1", limit: "12"}})}>
+      <AppHeader></AppHeader>
+    </RouterContext.Provider>
     );
 
-    const searchInput = screen.getByRole('textbox');
-    fireEvent.change(searchInput, { target: { value: 'TestValue' } });
+    await waitFor(() => {
+      const searchInput = screen.getByRole('textbox');
+      fireEvent.change(searchInput, { target: { value: 'TestValue' } });
 
-    const searchButton = screen.getByText('Search');
-    act(() => {
-      fireEvent.click(searchButton);
-    });
+      const searchButton = screen.getByText('Search');
+      act(() => {
+        fireEvent.click(searchButton);
+      });
 
-    expect(window.localStorage.setItem).toHaveBeenCalledWith(
-      'searchParam',
-      'TestValue'
-    );
+      expect(window.localStorage.setItem).toHaveBeenCalledWith(
+        'searchParam',
+        'TestValue'
+      );
   });
+    })
 
-  test('component retrieves the value from the local storage upon mounting', () => {
+  test('component retrieves the value from the local storage upon mounting', async () => {
     render(
-      <Provider store={store}>
+      <RouterContext.Provider value={createMockRouter({query: {page: "1", limit: "12"}})}>
         <AppHeader />
-    </Provider>
+    </RouterContext.Provider>
     );
-
-    expect(window.localStorage.getItem).toHaveBeenCalledWith('searchParam');
-
-    expect(screen.getByDisplayValue('TestValue')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(window.localStorage.getItem).toHaveBeenCalledWith('searchParam');
+      expect(screen.getByDisplayValue('TestValue')).toBeInTheDocument();
+    });
   });
 });
 
 test('Verify that typing error renders the error boundary', async () => {
   render(
-    <Provider store={store}>
+    <RouterContext.Provider value={createMockRouter({query: {page: "1", limit: "12"}})}>
       <AppHeader />
-  </Provider>
+    </RouterContext.Provider>
   );
 
   const searchInput = screen.getByRole('textbox');
