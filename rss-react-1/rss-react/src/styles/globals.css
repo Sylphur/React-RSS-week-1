@@ -204,3 +204,8 @@ button {
 button:hover {
   border-color: #646cff;
 }
+#__next {
+  max-width: 1280px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
