@@ -11,6 +11,7 @@ import type { AppProps } from 'next/app';
 import { storeWrapper } from '@/state/store';
 import { Provider } from 'react-redux';
 
+
 export default function App({ Component, pageProps }: AppProps) {
   const { store } = storeWrapper.useWrappedStore(pageProps);
   return (
