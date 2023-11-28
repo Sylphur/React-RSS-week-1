@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 interface CardProps {
   takenPokemon: string;
 }
-
 const AppMainCard = (props: CardProps) => {
   const router = useRouter();
   const { limit, page, search } = router.query;
