@@ -3,14 +3,14 @@ import { expect, test } from 'vitest';
 import MainAbout from './MainAbout';
 import { Provider } from 'react-redux';
 import { store } from '../../../state/store';
-import { MemoryRouterProvider } from "next-router-mock/MemoryRouterProvider";
+import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 
 test('Check that a loading indicator is displayed while fetching data;', async () => {
   render(
     <Provider store={store}>
-    <MemoryRouterProvider>
+      <MemoryRouterProvider>
         <MainAbout />
-    </MemoryRouterProvider>
+      </MemoryRouterProvider>
     </Provider>
   );
   expect(

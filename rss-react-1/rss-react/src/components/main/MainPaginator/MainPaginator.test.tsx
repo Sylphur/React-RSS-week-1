@@ -3,7 +3,7 @@ import MainPaginator from './MainPaginator';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { store } from '../../../state/store';
-import { MemoryRouterProvider } from "next-router-mock/MemoryRouterProvider";
+import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 
 test('Update parameters when page changes', async () => {
   render(

@@ -5,15 +5,12 @@ const SearchButton = (searchProps: HeaderContextProps) => {
   const router = useRouter();
   const searchClick = async () => {
     await router.push({
-      query: {...router.query, search: searchProps.searchParam}
-    })
-  }
+      query: { ...router.query, search: searchProps.searchParam },
+    });
+  };
   return (
     <div>
-      <button
-        type="submit"
-        onClick={searchClick}
-      >
+      <button type="submit" onClick={searchClick}>
         Search
       </button>
     </div>

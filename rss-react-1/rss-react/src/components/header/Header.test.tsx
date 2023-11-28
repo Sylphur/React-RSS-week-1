@@ -23,9 +23,11 @@ describe('Search-input component', () => {
 
   test('Verify that clicking the Search button saves the entered value to the local storage', async () => {
     render(
-    <RouterContext.Provider value={createMockRouter({query: {page: "1", limit: "12"}})}>
-      <AppHeader></AppHeader>
-    </RouterContext.Provider>
+      <RouterContext.Provider
+        value={createMockRouter({ query: { page: '1', limit: '12' } })}
+      >
+        <AppHeader></AppHeader>
+      </RouterContext.Provider>
     );
 
     await waitFor(() => {
@@ -41,14 +43,16 @@ describe('Search-input component', () => {
         'searchParam',
         'TestValue'
       );
+    });
   });
-    })
 
   test('component retrieves the value from the local storage upon mounting', async () => {
     render(
-      <RouterContext.Provider value={createMockRouter({query: {page: "1", limit: "12"}})}>
+      <RouterContext.Provider
+        value={createMockRouter({ query: { page: '1', limit: '12' } })}
+      >
         <AppHeader />
-    </RouterContext.Provider>
+      </RouterContext.Provider>
     );
     await waitFor(() => {
       expect(window.localStorage.getItem).toHaveBeenCalledWith('searchParam');
@@ -59,7 +63,9 @@ describe('Search-input component', () => {
 
 test('Verify that typing error renders the error boundary', async () => {
   render(
-    <RouterContext.Provider value={createMockRouter({query: {page: "1", limit: "12"}})}>
+    <RouterContext.Provider
+      value={createMockRouter({ query: { page: '1', limit: '12' } })}
+    >
       <AppHeader />
     </RouterContext.Provider>
   );

@@ -32,7 +32,7 @@ const pokemonSlice = createSlice({
       pokemonAPI.endpoints.getAllPokemonList.matchPending,
       (state) => {
         state.isCardsLoading = true;
-        state.takenPokemon = []
+        state.takenPokemon = [];
       }
     );
     builder.addMatcher(
@@ -40,7 +40,7 @@ const pokemonSlice = createSlice({
       (state, action) => {
         state.isCardsLoading = false;
         if (action.payload?.results) {
-          state.takenPokemon = action.payload.results
+          state.takenPokemon = action.payload.results;
         } else {
           state.takenPokemon = [];
         }

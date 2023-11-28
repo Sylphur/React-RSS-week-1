@@ -13,8 +13,8 @@ const MainAbout = () => {
 
   const returnToSearch = async () => {
     await router.push({
-      query: {limit: limit, page: page, search: search}
-    })
+      query: { limit: limit, page: page, search: search },
+    });
   };
   useEffect(() => {
     const init = async () => {
@@ -37,13 +37,13 @@ const MainAbout = () => {
         </div>
         <p>Height: {data?.height}</p>
         <p>Weight: {data?.weight}</p>
-        <div className='about-abilities-wrapper'>
+        <div className="about-abilities-wrapper">
           <h4 className="about-abilities">Abilities:</h4>
-        {data?.abilities.map((ability) => (
-          <p key={ability.ability.name}>{ability.ability.name}</p>
-        ))}
+          {data?.abilities.map((ability) => (
+            <p key={ability.ability.name}>{ability.ability.name}</p>
+          ))}
         </div>
-        
+
         <button className="about-close-btn" onClick={returnToSearch}>
           X
         </button>

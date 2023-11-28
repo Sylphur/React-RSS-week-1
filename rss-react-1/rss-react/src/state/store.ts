@@ -1,15 +1,20 @@
-import { AnyAction, Reducer, combineReducers, configureStore } from '@reduxjs/toolkit';
+import {
+  AnyAction,
+  Reducer,
+  combineReducers,
+  configureStore,
+} from '@reduxjs/toolkit';
 import { pokemonAPI } from '../services/api-query.service';
 import searchSlice from './reducers/searchSlice';
 import pokemonSlice from './reducers/pokemonSlice';
-import { HYDRATE, createWrapper } from "next-redux-wrapper";
+import { HYDRATE, createWrapper } from 'next-redux-wrapper';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 const rootReducer = combineReducers({
   [pokemonAPI.reducerPath]: pokemonAPI.reducer,
   search: searchSlice,
   pokemon: pokemonSlice,
-})
+});
 const hydrationReducer: Reducer = (
   state: ReturnType<typeof rootReducer>,
   action: AnyAction
@@ -23,7 +28,7 @@ const hydrationReducer: Reducer = (
   } else {
     return rootReducer(state, action);
   }
-}
+};
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -39,10 +44,11 @@ export const setupStore = () => {
     devTools: true,
   });
 };
-setupListeners(store.dispatch)
+setupListeners(store.dispatch);
 export type RootState = ReturnType<typeof store.getState>;
 export type SetupState = ReturnType<typeof setupStore>;
 export type AppDispatch = typeof store.dispatch;
 
-export const storeWrapper = createWrapper<SetupState>(setupStore, {debug: true})
-
+export const storeWrapper = createWrapper<SetupState>(setupStore, {
+  debug: true,
+});

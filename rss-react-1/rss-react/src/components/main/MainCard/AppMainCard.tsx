@@ -12,7 +12,7 @@ const AppMainCard = (props: CardProps) => {
   const { limit, page, search } = router.query;
   const actualPage = page ? Number(page) : 1;
   const actualPageSize = limit ? Number(limit) : 12;
-  const actualSearch = search ? search+'' : '';
+  const actualSearch = search ? search + '' : '';
   const { data, isFetching, isError } = useGetPokemonQuery(props.takenPokemon);
 
   if (isFetching)
@@ -37,8 +37,7 @@ const AppMainCard = (props: CardProps) => {
             actualPageSize,
             actualSearch,
             props.takenPokemon
-          )
-          }
+          )}
           className="main-card-link-wrapper"
         >
           <div className="main-card-wrapper">

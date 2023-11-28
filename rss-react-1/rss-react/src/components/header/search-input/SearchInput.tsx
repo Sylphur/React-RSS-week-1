@@ -1,17 +1,16 @@
-'use client'
+'use client';
 import { setLocalSearchParam } from '../../../services/local-storage.service';
 import { HeaderContextProps } from '@/shared/interfaces';
 
 const SearchInput = (searchProps: HeaderContextProps) => {
-
   if (searchProps.searchParam === 'error')
     throw new Error('Error has been catched!');
-  
+
   const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;;
+    const value = event.target.value;
     searchProps.setSearchParam(value);
     setLocalSearchParam(value);
-  }
+  };
   return (
     <div>
       <input

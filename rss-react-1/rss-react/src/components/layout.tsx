@@ -1,5 +1,5 @@
-import { ReactNodeProps } from "@/shared/interfaces";
-import AppHeader from "./header/AppHeader";
+import { ReactNodeProps } from '@/shared/interfaces';
+import AppHeader from './header/AppHeader';
 
 export default function Layout({ children }: ReactNodeProps) {
   return (
@@ -7,5 +7,5 @@ export default function Layout({ children }: ReactNodeProps) {
       <AppHeader />
       <main>{children}</main>
     </>
-  )
+  );
 }

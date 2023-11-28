@@ -7,32 +7,30 @@ import { PokemonResponse } from '../../../shared/interfaces';
 import { generateLink } from '../../../services/link-generation.service';
 import { Provider } from 'react-redux';
 import { store } from '../../../state/store';
-import { MemoryRouterProvider } from "next-router-mock/MemoryRouterProvider";
+import { MemoryRouterProvider } from 'next-router-mock/MemoryRouterProvider';
 
 test('Ensure that the card component renders the relevant card data;', async () => {
   const mockedResponse: PokemonResponse[] = items;
   render(
     <Provider store={store}>
-    <MemoryRouterProvider>
-      {mockedResponse.map((item: PokemonResponse) => {
-        return (
-          <li key={item.name}>
-            <AppMainCard
-              takenPokemon={item.name}
-            ></AppMainCard>
-          </li>
-        );
-      })}
-    </MemoryRouterProvider>
+      <MemoryRouterProvider>
+        {mockedResponse.map((item: PokemonResponse) => {
+          return (
+            <li key={item.name}>
+              <AppMainCard takenPokemon={item.name}></AppMainCard>
+            </li>
+          );
+        })}
+      </MemoryRouterProvider>
     </Provider>
   );
-  await waitFor (() => {
+  await waitFor(() => {
     for (const { name } of items) {
       expect(
         screen.getByText<HTMLParagraphElement>(`Name: ${name}`)
       ).toBeInTheDocument();
     }
-  })
+  });
 });
 
 test('Validate that clicking on a card opens a detailed card component', async () => {
@@ -44,11 +42,9 @@ test('Validate that clicking on a card opens a detailed card component', async (
   const mockedResponse: PokemonResponse[] = items;
   render(
     <Provider store={store}>
-    <MemoryRouterProvider>
-      <AppMainCard
-        takenPokemon={mockedResponse[0].name}
-      ></AppMainCard>
-    </MemoryRouterProvider>
+      <MemoryRouterProvider>
+        <AppMainCard takenPokemon={mockedResponse[0].name}></AppMainCard>
+      </MemoryRouterProvider>
     </Provider>
   );
   const link = screen.getByRole('link');
@@ -58,7 +54,7 @@ test('Validate that clicking on a card opens a detailed card component', async (
       paginationData.currPage,
       paginationData.currPageSize,
       '',
-      mockedResponse[0].name + '',
+      mockedResponse[0].name + ''
     )
   );
 });

@@ -9,37 +9,27 @@ const MainPaginator = () => {
 
   const nextPage = async () => {
     await router.push({
-      query: {search: search, page: actualPage + 1, limit: limit}
-    })
+      query: { search: search, page: actualPage + 1, limit: limit },
+    });
   };
   const previousPage = async () => {
     await router.push({
-      query: {search: search, page: actualPage - 1, limit: limit}
-    })
+      query: { search: search, page: actualPage - 1, limit: limit },
+    });
   };
   const handleChange = async (event: ChangeEvent<HTMLSelectElement>) => {
     await router.push({
-      query: {search: search, page: 1, limit: +event.target.value}
-    })
+      query: { search: search, page: 1, limit: +event.target.value },
+    });
   };
 
   return (
     <ul className="pagination-wrapper">
-      <button
-        disabled={actualPage <= 1}
-        onClick={previousPage}
-      >
+      <button disabled={actualPage <= 1} onClick={previousPage}>
         {'<'}
       </button>
       <li>{actualPage}</li>
-      <button
-        disabled={
-          actualPage >=
-          400 /
-            actualPageSize
-        }
-        onClick={nextPage}
-      >
+      <button disabled={actualPage >= 400 / actualPageSize} onClick={nextPage}>
         {'>'}
       </button>
       <li>
