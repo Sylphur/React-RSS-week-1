@@ -3,7 +3,6 @@ import { setLocalSearchParam } from '../../../services/local-storage.service';
 import { HeaderContextProps } from '@/shared/interfaces';
 
 const SearchInput = (searchProps: HeaderContextProps) => {
-  // const useHeaderContext = useContext(HeaderContext);
 
   if (searchProps.searchParam === 'error')
     throw new Error('Error has been catched!');

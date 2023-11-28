@@ -1,8 +1,7 @@
-import { AnyAction, combineReducers, configureStore } from '@reduxjs/toolkit';
+import { AnyAction, Reducer, combineReducers, configureStore } from '@reduxjs/toolkit';
 import { pokemonAPI } from '../services/api-query.service';
 import searchSlice from './reducers/searchSlice';
 import pokemonSlice from './reducers/pokemonSlice';
-// import paginationSlice from './reducers/paginationSlice';
 import { HYDRATE, createWrapper } from "next-redux-wrapper";
 import { setupListeners } from '@reduxjs/toolkit/query';
 
@@ -10,18 +9,17 @@ const rootReducer = combineReducers({
   [pokemonAPI.reducerPath]: pokemonAPI.reducer,
   search: searchSlice,
   pokemon: pokemonSlice,
-  // pagination: paginationSlice,
 })
-const hydrationReducer = ( // eslint-disable-line
+const hydrationReducer: Reducer = (
   state: ReturnType<typeof rootReducer>,
   action: AnyAction
 ) => {
   if (action.type === HYDRATE) {
-    const nextState = {
+    const nextState: typeof rootReducer = {
       ...state,
       ...action.payload,
     };
-    return nextState;
+    return nextState as typeof rootReducer;
   } else {
     return rootReducer(state, action);
   }

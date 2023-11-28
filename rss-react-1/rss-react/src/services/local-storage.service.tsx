@@ -6,6 +6,4 @@ export const getLocalSearchParam = (): string => {
 
 export const setLocalSearchParam = (param: string): void => {
   localStorage.setItem('searchParam', param);
-  console.log('set!!!');
-  
 };

@@ -5,9 +5,6 @@ import { Provider } from 'react-redux';
 import { store } from '../../../state/store';
 import { MemoryRouterProvider } from "next-router-mock/MemoryRouterProvider";
 
-//  vi.mock('next/router', () => require('next-router-mock'));
-// const useRouter = vi.spyOn(require('next/router'), 'useRouter');
-
 test('Update parameters when page changes', async () => {
   render(
     <Provider store={store}>

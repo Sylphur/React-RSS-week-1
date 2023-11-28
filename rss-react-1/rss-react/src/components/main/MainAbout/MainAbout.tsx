@@ -1,4 +1,3 @@
-// import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import AppLoader from '../../loader/AppLoader';
 import { useEffect } from 'react';
 import { useActions } from '../../../state/redux-hooks';

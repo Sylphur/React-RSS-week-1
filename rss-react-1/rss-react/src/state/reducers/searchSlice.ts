@@ -1,6 +1,4 @@
-// import { getLocalSearchParam } from '../../services/local-storage.service';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { HYDRATE } from 'next-redux-wrapper';
 interface searchData {
   search: string;
   isSearchLoading: boolean;

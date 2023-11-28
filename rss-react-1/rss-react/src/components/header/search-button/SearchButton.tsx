@@ -8,7 +8,6 @@ const SearchButton = (searchProps: HeaderContextProps) => {
       query: {...router.query, search: searchProps.searchParam}
     })
   }
-  // const { setSearch } = useActions();
   return (
     <div>
       <button

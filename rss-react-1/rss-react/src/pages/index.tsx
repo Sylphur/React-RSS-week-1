@@ -3,18 +3,13 @@ import { GetServerSideProps } from "next";
 import { storeWrapper } from '@/state/store';
 import { getRunningQueriesThunk, pokemonAPI } from '@/services/api-query.service';
 import { PokemonState } from '@/state/reducers/pokemonSlice';
-import { useAppSelector } from '@/state/redux-hooks';
 import AppMain from '@/components/main/AppMain';
 import { searchActions } from '@/state/reducers/searchSlice';
-// import styles from '@/styles/Home.module.scss';
-// className={`${styles.main}`}
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const getServerSideProps: GetServerSideProps<{ data: { cards: PokemonState; }; }> =
   storeWrapper.getServerSideProps((store) => async (context) => {
     const { limit, search, page } = context.query;
-    console.log('context: ', context.query);
-    
     const pageNumber = Number(page) || 1;
     const limitNumber = Number(limit) || 12;
     const limitNumber2 = search ? 1 : limitNumber;
@@ -40,13 +35,8 @@ export const getServerSideProps: GetServerSideProps<{ data: { cards: PokemonStat
       },
     };
   });
-//{data}: InferGetServerSidePropsType<typeof getServerSideProps>
+
 export default function Home() {
-  const pokemon = useAppSelector((state) => state.pokemon.takenPokemon);
-  const searc = useAppSelector((state) => state.search.search);
-  console.log('actual pokemon :', pokemon);
-  console.log('actual serach: ', searc);
-  
   return (
     <>
       <Head>

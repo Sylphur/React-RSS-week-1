@@ -1,5 +1,3 @@
-// import './AppLoader.scss';
-
 interface LoaderState {
   isLoading: boolean;
 }

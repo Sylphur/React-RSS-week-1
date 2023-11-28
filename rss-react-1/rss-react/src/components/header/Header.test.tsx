@@ -10,8 +10,6 @@ import AppHeader from './AppHeader';
 import { RouterContext } from 'next/dist/shared/lib/router-context.shared-runtime';
 import { createMockRouter } from '@/__tests__/utils/createMockRouter';
 
-// const useRouter = vi.spyOn(require('next/router'), 'useRouter');
-
 describe('Search-input component', () => {
   const storage: Record<string, string> = {};
 

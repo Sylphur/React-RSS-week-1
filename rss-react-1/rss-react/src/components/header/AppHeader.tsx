@@ -1,11 +1,12 @@
 'use client'
 import SearchInput from './search-input/SearchInput';
 import SearchButton from './search-button/SearchButton';
-import logo from '../../../public/pokeLogo.png';
 import ErrorBoundary from '../errorBoundary/ErrorBoundary';
+import logo from "../../../public/pokeLogo.png";
 
-import Image from 'next/image';
+
 import { useState } from 'react';
+import Image from 'next/image';
 
 const AppHeader = () => {
   const [searchParam, setSearchParam] = useState<string>(
@@ -15,7 +16,7 @@ const AppHeader = () => {
   return (
       <header className="app-header">
         <ErrorBoundary>
-          <Image fill={true} src={logo} alt="Poke-logo" className="header-logo" />
+          <Image width={200} height={120} src={logo} alt="Poke-logo" className="header-logo" />
           <SearchInput searchParam={searchParam} setSearchParam={setSearchParam}></SearchInput>
           <SearchButton searchParam={searchParam} setSearchParam={setSearchParam}></SearchButton>
         </ErrorBoundary>
