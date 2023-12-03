@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
-import MainAbout from './components/main/MainAbout/MainAbout.tsx';
+import ComponentsForm from './components/components-form/ComponentsForm.tsx';
+import HooksForm from './components/hooks-form/HooksForm.tsx';
+import Main from './components/main/main.tsx';
+
 
 const router = createBrowserRouter([
   {
@@ -11,10 +14,18 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: ':id',
-        element: <MainAbout />,
+        path: '/',
+        element: <Main />
       },
-    ],
+      {
+        path: '/components',
+        element: <ComponentsForm />
+      },
+      {
+        path: '/hooks',
+        element: <HooksForm />
+      },
+    ]
   },
 ]);
 
