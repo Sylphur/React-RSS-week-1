@@ -7,7 +7,7 @@ export const store = configureStore({
   reducer: {
     componentsForm: componentsFormSlice,
     hooksForm: hooksFormSlice,
-    countries: countriesSlice
+    countries: countriesSlice,
   },
 });
 

@@ -10,20 +10,19 @@ const initialForm: FormState = {
   gender: Gender.Male,
   picture: '',
   country: '',
-  accept: false
+  accept: false,
 };
 const initialState: InitialState = {
   form: initialForm,
-  touched: false
-}
+  touched: false,
+};
 
 const hookFormSlice = createSlice({
   name: 'hooks-form',
   initialState,
   reducers: {
     setHookForm: (state, action: PayloadAction<FormState>) => {
-      state.form = action.payload,
-      state.touched = true
+      (state.form = action.payload), (state.touched = true);
     },
   },
 });

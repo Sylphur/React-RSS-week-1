@@ -7,7 +7,6 @@ import ComponentsForm from './components/components-form/ComponentsForm.tsx';
 import HooksForm from './components/hooks-form/HooksForm.tsx';
 import Main from './components/main/main.tsx';
 
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -15,17 +14,17 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Main />
+        element: <Main />,
       },
       {
         path: '/components',
-        element: <ComponentsForm />
+        element: <ComponentsForm />,
       },
       {
         path: '/hooks',
-        element: <HooksForm />
+        element: <HooksForm />,
       },
-    ]
+    ],
   },
 ]);
 

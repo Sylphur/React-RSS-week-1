@@ -10,20 +10,19 @@ const initialForm: FormState = {
   gender: Gender.Male,
   picture: '',
   country: '',
-  accept: false
+  accept: false,
 };
 const initialState: InitialState = {
   form: initialForm,
-  touched: false
-}
+  touched: false,
+};
 
 const compFormSlice = createSlice({
   name: 'components-form',
   initialState,
   reducers: {
     setComponentForm: (state, action: PayloadAction<FormState>) => {
-      state.form = action.payload,
-      state.touched = true
+      (state.form = action.payload), (state.touched = true);
     },
   },
 });
