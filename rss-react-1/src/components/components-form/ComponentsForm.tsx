@@ -23,6 +23,7 @@ const ComponentsForm = () => {
   const pictureRef = useRef<HTMLInputElement>(null);
   const [picture, setPicture] = useState('');
   const acceptRef = useRef<HTMLInputElement>(null);
+  const [disabled, setDisabled] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,7 +63,10 @@ const ComponentsForm = () => {
         });
       }
       setValidateErrors(errors);
-      console.error(errors);
+      setDisabled(true);
+      setTimeout(() => {
+        setDisabled(false);
+      }, 2000);
     }
   };
   const handleRadio = (e: ChangeEvent<HTMLInputElement>) => {
@@ -96,7 +100,7 @@ const ComponentsForm = () => {
             id="name"
             ref={nameRef}
             placeholder="Name"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow bg-input appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
           <p className="text-red-500 text-s italic">{validateErrors['name']}</p>
         </div>
@@ -111,7 +115,7 @@ const ComponentsForm = () => {
             id="age"
             ref={ageRef}
             placeholder="Age"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow bg-input appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
           <p className="text-red-500 text-s italic">{validateErrors['age']}</p>
         </div>
@@ -126,7 +130,7 @@ const ComponentsForm = () => {
             id="email"
             ref={emailRef}
             placeholder="E-mail"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow bg-input appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
           <p className="text-red-500 text-s italic">
             {validateErrors['email']}
@@ -142,7 +146,7 @@ const ComponentsForm = () => {
             id="country"
             ref={countryRef}
             placeholder="Country"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow bg-input appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           >
             {countries.map((value) => (
               <option key={value} value={value}>
@@ -165,7 +169,7 @@ const ComponentsForm = () => {
             id="password"
             ref={passwordRef}
             placeholder="Password"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow bg-input appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
           <p className="text-red-500 text-s italic">
             {validateErrors['password']}
@@ -182,7 +186,7 @@ const ComponentsForm = () => {
             id="confirm"
             ref={confirmRef}
             placeholder="Confirm password"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow bg-input appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
           <p className="text-red-500 text-s italic">
             {validateErrors['confirm']}
@@ -231,7 +235,7 @@ const ComponentsForm = () => {
             id="picture"
             ref={pictureRef}
             onChange={handleImage}
-            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            className="block bg-input w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
           />
           <p className="text-red-500 text-s italic">
             {validateErrors['picture']}
@@ -256,6 +260,7 @@ const ComponentsForm = () => {
         <button
           type="submit"
           className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          disabled={disabled}
         >
           Submit
         </button>

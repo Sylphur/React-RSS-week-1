@@ -12,12 +12,7 @@ const HooksForm = () => {
   const { setHookForm } = useActions();
   const countries = useAppSelector((state) => state.countries.countries);
   const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, getValues, formState } = useForm({
     mode: 'onChange',
     resolver: yupResolver(userSchema),
   });
@@ -45,10 +40,10 @@ const HooksForm = () => {
             id="name"
             {...register('name')}
             placeholder="Name"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none bg-input border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
           <p className="text-red-500 text-s italic">
-            {errors.name && errors.name.message}
+            {formState.errors.name && formState.errors.name.message}
           </p>
         </div>
 
@@ -61,10 +56,10 @@ const HooksForm = () => {
             id="age"
             {...register('age')}
             placeholder="Age"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none bg-input border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
           <p className="text-red-500 text-s italic">
-            {errors.age && errors.age.message}
+            {formState.errors.age && formState.errors.age.message}
           </p>
         </div>
 
@@ -77,10 +72,10 @@ const HooksForm = () => {
             id="email"
             {...register('email')}
             placeholder="E-mail"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none bg-input border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
           <p className="text-red-500 text-s italic">
-            {errors.email && errors.email.message}
+            {formState.errors.email && formState.errors.email.message}
           </p>
         </div>
 
@@ -92,7 +87,7 @@ const HooksForm = () => {
             id="country"
             {...register('country')}
             placeholder="Country"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none bg-input border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           >
             {countries.map((value) => (
               <option key={value} value={value}>
@@ -101,7 +96,7 @@ const HooksForm = () => {
             ))}
           </select>
           <p className="text-red-500 text-s italic">
-            {errors.country && errors.country.message}
+            {formState.errors.country && formState.errors.country.message}
           </p>
         </div>
 
@@ -114,10 +109,10 @@ const HooksForm = () => {
             id="password"
             {...register('password')}
             placeholder="Password"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none bg-input border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
           <p className="text-red-500 text-s italic">
-            {errors.password && errors.password.message}
+            {formState.errors.password && formState.errors.password.message}
           </p>
         </div>
 
@@ -130,10 +125,10 @@ const HooksForm = () => {
             id="confirm"
             {...register('confirm')}
             placeholder="Confirm password"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none bg-input border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
           <p className="text-red-500 text-s italic">
-            {errors.confirm && errors.confirm.message}
+            {formState.errors.confirm && formState.errors.confirm.message}
           </p>
         </div>
 
@@ -159,7 +154,7 @@ const HooksForm = () => {
           />
           <label htmlFor="genderFemale">{Gender.Female}</label>
           <p className="text-red-500 text-s italic">
-            {errors.gender && errors.gender.message}
+            {formState.errors.gender && formState.errors.gender.message}
           </p>
         </div>
 
@@ -174,10 +169,10 @@ const HooksForm = () => {
             type="file"
             id="picture"
             {...register('picture')}
-            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            className="block w-full text-sm bg-input text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
           />
           <p className="text-red-500 text-s italic">
-            {errors.picture && errors.picture.message}
+            {formState.errors.picture && formState.errors.picture.message}
           </p>
         </div>
 
@@ -191,12 +186,13 @@ const HooksForm = () => {
             defaultChecked
           />
           <p className="text-red-500 text-s italic">
-            {errors.acceptTerm && errors.acceptTerm.message}
+            {formState.errors.acceptTerm && formState.errors.acceptTerm.message}
           </p>
         </div>
 
         <button
           type="submit"
+          disabled={!formState.isValid}
           className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
           Submit
