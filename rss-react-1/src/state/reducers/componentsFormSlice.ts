@@ -10,7 +10,7 @@ const initialForm: FormState = {
   gender: Gender.Male,
   picture: '',
   country: '',
-  accept: false,
+  acceptTerm: false,
 };
 const initialState: InitialState = {
   form: initialForm,
