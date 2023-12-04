@@ -6,14 +6,14 @@ export interface FormState {
   email: string;
   password: string;
   gender: Gender;
-  picture: string;
+  picture: string | FileList;
   country: string;
-  accept: boolean;
+  acceptTerm: boolean;
 }
 export interface InitialState {
   form: FormState;
   touched: boolean;
 }
 export interface ValidationErrors {
-  [key: string]: string
+  [key: string]: string;
 }

@@ -12,6 +12,7 @@
     "format:fix": "prettier . --write"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.2",
     "@reduxjs/toolkit": "^1.9.7",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.29.0",

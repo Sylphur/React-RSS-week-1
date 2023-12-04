@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import { Gender } from '../shared/enums';
 
 export const userSchema = yup.object().shape({
   name: yup
@@ -25,7 +26,7 @@ export const userSchema = yup.object().shape({
     .required('Confirm password is required')
     .oneOf([yup.ref('password')], 'Password not correct'),
   acceptTerm: yup.boolean().required('This field is required').oneOf([true]),
-  gender: yup.string().required('Gender is required'),
+  gender: yup.mixed<Gender>().required('Gender is required'),
   picture: yup
     .mixed<FileList>()
     .required('Picture is required')

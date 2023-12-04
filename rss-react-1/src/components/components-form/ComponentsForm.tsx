@@ -1,11 +1,11 @@
 import { ChangeEvent, useRef, useState } from 'react';
-import './ComponentsForm.scss';
+import '../FormInput.scss';
 import { Gender } from '../../shared/enums';
 import { FormState, ValidationErrors } from '../../shared/interfaces';
 import { useActions, useAppSelector } from '../../state/redux-hooks';
 import { useNavigate } from 'react-router-dom';
 import { userSchema } from '../../services/FormValidation';
-import * as yup from 'yup'
+import * as yup from 'yup';
 
 const ComponentsForm = () => {
   const { setComponentForm } = useActions();
@@ -34,20 +34,23 @@ const ComponentsForm = () => {
       gender: gender,
       picture: picture,
       country: countryRef.current?.value as string,
-      accept: acceptRef.current?.checked as boolean,
+      acceptTerm: acceptRef.current?.checked as boolean,
     };
     try {
-      await userSchema.validate({
-        name: res.name,
-        age: res.age,
-        country: res.country,
-        email: res.email,
-        password: res.password,
-        confirm: confirmRef.current?.value,
-        acceptTerm: res.accept,
-        gender: res.gender,
-        picture: pictureRef.current?.files
-      }, {abortEarly: false});
+      await userSchema.validate(
+        {
+          name: res.name,
+          age: res.age,
+          country: res.country,
+          email: res.email,
+          password: res.password,
+          confirm: confirmRef.current?.value,
+          acceptTerm: res.acceptTerm,
+          gender: res.gender,
+          picture: pictureRef.current?.files,
+        },
+        { abortEarly: false }
+      );
       setValidateErrors({});
       setComponentForm(res);
       navigate('/');
@@ -56,7 +59,7 @@ const ComponentsForm = () => {
       if (error instanceof yup.ValidationError) {
         error.inner.forEach((err) => {
           errors[err.path as string] = err.message;
-        })
+        });
       }
       setValidateErrors(errors);
       console.error(errors);
@@ -66,17 +69,15 @@ const ComponentsForm = () => {
     setGender(e.target.value as Gender);
   };
   const handleImage = (e: ChangeEvent<HTMLInputElement>) => {
-    const image = e.target.files?.[0]
-    console.log('image: ', image);
-    
+    const image = e.target.files?.[0];
     if (image) {
       const reader = new FileReader();
       reader.onload = () => {
-        setPicture(reader.result as string)
-      }
+        setPicture(reader.result as string);
+      };
       reader.readAsDataURL(image);
     }
-  }
+  };
 
   return (
     <div className="mt-6">
@@ -97,7 +98,7 @@ const ComponentsForm = () => {
             placeholder="Name"
             className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
-          <p className='text-red-500 text-s italic'>{validateErrors['name']}</p>
+          <p className="text-red-500 text-s italic">{validateErrors['name']}</p>
         </div>
 
         <div className="mb-4">
@@ -112,7 +113,7 @@ const ComponentsForm = () => {
             placeholder="Age"
             className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
-          <p className='text-red-500 text-s italic'>{validateErrors['age']}</p>
+          <p className="text-red-500 text-s italic">{validateErrors['age']}</p>
         </div>
 
         <div className="mb-4">
@@ -127,7 +128,9 @@ const ComponentsForm = () => {
             placeholder="E-mail"
             className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
-          <p className='text-red-500 text-s italic'>{validateErrors['email']}</p>
+          <p className="text-red-500 text-s italic">
+            {validateErrors['email']}
+          </p>
         </div>
 
         <div className="mb-6">
@@ -147,7 +150,9 @@ const ComponentsForm = () => {
               </option>
             ))}
           </select>
-          <p className='text-red-500 text-s italic'>{validateErrors['country']}</p>
+          <p className="text-red-500 text-s italic">
+            {validateErrors['country']}
+          </p>
         </div>
 
         <div className="mb-4">
@@ -162,7 +167,9 @@ const ComponentsForm = () => {
             placeholder="Password"
             className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
-          <p className='text-red-500 text-s italic'>{validateErrors['password']}</p>
+          <p className="text-red-500 text-s italic">
+            {validateErrors['password']}
+          </p>
         </div>
 
         <div className="mb-4">
@@ -177,7 +184,9 @@ const ComponentsForm = () => {
             placeholder="Confirm password"
             className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
-          <p className='text-red-500 text-s italic'>{validateErrors['confirm']}</p>
+          <p className="text-red-500 text-s italic">
+            {validateErrors['confirm']}
+          </p>
         </div>
 
         <div className="mb-4">
@@ -204,7 +213,9 @@ const ComponentsForm = () => {
             className="mr-1 scale"
           />
           <label htmlFor="genderFemale">{Gender.Female}</label>
-          <p className='text-red-500 text-s italic'>{validateErrors['gender']}</p>
+          <p className="text-red-500 text-s italic">
+            {validateErrors['gender']}
+          </p>
         </div>
 
         <div className="mb-4">
@@ -222,7 +233,9 @@ const ComponentsForm = () => {
             onChange={handleImage}
             className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
           />
-          <p className='text-red-500 text-s italic'>{validateErrors['picture']}</p>
+          <p className="text-red-500 text-s italic">
+            {validateErrors['picture']}
+          </p>
         </div>
 
         <div className="mb-6">
@@ -235,7 +248,9 @@ const ComponentsForm = () => {
             className="ml-3 scale"
             defaultChecked
           />
-          <p className='text-red-500 text-s italic'>{validateErrors['acceptTerm']}</p>
+          <p className="text-red-500 text-s italic">
+            {validateErrors['acceptTerm']}
+          </p>
         </div>
 
         <button
